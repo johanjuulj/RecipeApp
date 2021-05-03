@@ -17,9 +17,9 @@ namespace RecipeApp.Models
                 new Ingredient { Id = 3, Name ="Spaghetti", ShelfLifeDays = 400 , CaloriesPer100G = 30 , CO2Per100G = 4},
                 new Ingredient { Id = 4, Name ="Tomato", ShelfLifeDays = 12 , CaloriesPer100G = 15 , CO2Per100G = 10}
           };
-        public IEnumerable<Recipe> GetAllIngredients => throw new NotImplementedException();
+        public IEnumerable<Ingredient> GetAllIngredients => throw new NotImplementedException();
 
-        public Recipe GetIngredientById(int ingredientId)
+        public Ingredient GetIngredientById(int ingredientId)
         {
             throw new NotImplementedException();
         }

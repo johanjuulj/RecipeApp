@@ -7,10 +7,10 @@ namespace RecipeApp.Models
 {
     public interface IIngredientRepo
     {
-        IEnumerable<Recipe> GetAllIngredients { get; }
+        IEnumerable<Ingredient> GetAllIngredients { get; }
 
         //IEnumerable<Recipe> SearchRecipes { get; }
-        Recipe GetIngredientById(int ingredientId);
+        Ingredient GetIngredientById(int ingredientId);
 
     }
 }

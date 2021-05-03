@@ -19,7 +19,7 @@ namespace RecipeApp.Models
 
         //allergy information, should this be pulled from ingredient list
 
-        public decimal Price { get; set; }
+      //  public decimal Price { get; set; }
 
         public string ImageUrl { get; set; }
 

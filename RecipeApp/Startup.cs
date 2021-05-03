@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,11 +25,16 @@ namespace RecipeApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           // services.AddDbContext<AppDbContext>(options =>
+            //options.UseSqlServer("DefaultConnection"));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddScoped<IRecipeRepo, InMemoryRecipeRepo>();
-            services.AddScoped<IIngredientRepo, InMemoryIngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
+            services.AddScoped<IRecipeRepo, RecipeRepo>(); //add inmemory to change DB
+            services.AddScoped<IIngredientRepo, IngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline. /Middlewares
