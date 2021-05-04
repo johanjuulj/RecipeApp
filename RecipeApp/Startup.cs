@@ -61,7 +61,10 @@ namespace RecipeApp
 
             app.UseEndpoints(endpoints =>
             {
+                //difference between convetion based routing and attribute based routing (API)?
+                
                 endpoints.MapRazorPages();
+
 
                 endpoints.MapControllerRoute(
                     name: "default",

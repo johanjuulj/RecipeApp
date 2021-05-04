@@ -21,8 +21,18 @@ namespace RecipeApp.Controllers
 
             return View(recipeListViewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+            var recipe = _recipeRepository.GetRecipeById(id);
+
+            if (recipe == null) return NotFound();
+
+            return View(recipe);
+        }
         public ViewResult Index()
         {
+            
             return View(_recipeRepository.GetAllRecipes);
         }
 
