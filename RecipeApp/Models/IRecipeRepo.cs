@@ -8,6 +8,7 @@ namespace RecipeApp.Models
     public interface IRecipeRepo
     {
         IEnumerable<Recipe> GetAllRecipes { get; }
+        
 
         //IEnumerable<Recipe> SearchRecipes { get; }
         Recipe GetRecipeById(int recipeId);

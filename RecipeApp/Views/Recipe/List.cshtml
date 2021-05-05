@@ -6,16 +6,5 @@
     
     @foreach (var recipe in Model.Recipes)
     {
-<div class="col-sm-4 col-lg-4 col-md-4">
-    <div class="thumbnail">
-        <img src="@recipe.ImageUrl" alt="">
-        <div class="caption">
-            
-            <h3>
-                <a asp-controller="Recipe" asp-action="Details" asp-route-id="@recipe.Id">@recipe.Name</a>
-            </h3>
-            <p>@recipe.Kitchen</p>
-        </div>
-    </div>
-</div>
+        <partial name="_RecipeCard" model="recipe" />
     }

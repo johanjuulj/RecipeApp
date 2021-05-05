@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210505131255_addedFPitems")]
+    partial class addedFPitems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace RecipeApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
 
                     b.Property<int>("CO2")
                         .HasColumnType("int");
@@ -121,9 +120,6 @@ namespace RecipeApp.Migrations
                         .HasColumnType("nvarchar(80)")
                         .HasMaxLength(80);
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,7 +134,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fopskrifter.coop.dk%2Fopskrifter%2Fspaghetti-bolognese-760&psig=AOvVaw1Idfy2G91X7H3FP8kX0WSg&ust=1620205352346000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCa1rbVr_ACFQAAAAAdAAAAABAF",
                             Kitchen = 2,
                             Name = "Bolognese",
-                            Price = 0m,
                             ShortDescription = "Best authentic bolognese recipe in the world"
                         },
                         new
@@ -147,7 +142,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/blueberrycheesecake.jpg",
                             Kitchen = 6,
                             Name = "Blueberry Cheese Cake",
-                            Price = 0m,
                             ShortDescription = "You'll love it!"
                         },
                         new
@@ -156,7 +150,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cheesecake.jpg",
                             Kitchen = 1,
                             Name = "Steg Flæsk med Persillesovs",
-                            Price = 0m,
                             ShortDescription = "The best of the worst danish cuisine can bring you"
                         },
                         new
@@ -165,7 +158,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
                             Kitchen = 6,
                             Name = "Cherry Pie",
-                            Price = 0m,
                             ShortDescription = "A summer classic!"
                         },
                         new
@@ -174,7 +166,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
                             Kitchen = 6,
                             Name = "Christmas Apple Pie",
-                            Price = 0m,
                             ShortDescription = "Happy holidays with this pie!"
                         },
                         new
@@ -183,7 +174,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
                             Kitchen = 6,
                             Name = "Cranberry Pie",
-                            Price = 0m,
                             ShortDescription = "A Christmas favorite"
                         },
                         new
@@ -192,7 +182,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
                             Kitchen = 6,
                             Name = "Peach Pie",
-                            Price = 0m,
                             ShortDescription = "Sweet as peach"
                         },
                         new
@@ -201,7 +190,6 @@ namespace RecipeApp.Migrations
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
                             Kitchen = 6,
                             Name = "Pumpkin Pie",
-                            Price = 0m,
                             ShortDescription = "Our Halloween favorite"
                         });
                 });
