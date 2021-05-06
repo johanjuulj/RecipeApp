@@ -1,0 +1,17 @@
+﻿@model FoodPlanViewModel
+
+
+@if (Model.FoodPlan.FoodPlanRecipes.Count > 0)
+            {
+                <li>
+                    <a>
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        <span id="plan-status">
+                            @Model.FoodPlan.FoodPlanRecipes.Count
+                        </span>
+                    </a>
+
+
+
+                </li>
+            }
