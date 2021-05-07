@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210507115321_MovedIL")]
+    partial class MovedIL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,29 +100,6 @@ namespace RecipeApp.Migrations
                             Name = "Tomato",
                             ShelfLifeDays = 12
                         });
-                });
-
-            modelBuilder.Entity("RecipeApp.Models.IngredientList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("IngredientLists");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
@@ -231,13 +210,6 @@ namespace RecipeApp.Migrations
                     b.HasOne("RecipeApp.Models.Recipe", "Recipe")
                         .WithMany()
                         .HasForeignKey("RecipeId");
-                });
-
-            modelBuilder.Entity("RecipeApp.Models.IngredientList", b =>
-                {
-                    b.HasOne("RecipeApp.Models.Ingredient", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,8 +24,11 @@ namespace RecipeApp.Models
         public string ImageUrl { get; set; }
 
         public Cuisine Kitchen { get; set; }
-        
-        //public Ingredient MainIngredient { get; set; }
-        //public IDictionary<Ingredient, int> IngredientList = new Dictionary<Ingredient, int>();
+
+        //ingredientlist id
+        //public int IngredientId { get; set; }
+        ////add process/amount to future versions for now we only calculate co2 footprint, 
+        public IDictionary<Ingredient, int> ILDictionary = new Dictionary<Ingredient, int>();
+
     }
 }

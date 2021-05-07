@@ -5,17 +5,26 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Models
 {
-    public class FoodPlanItem
+    public class IngredientList
     {
+
+
+        
+
+
+
+
         public int Id { get; set; }
 
-        public Recipe Recipe { get; set; }
+        public Ingredient Ingredient { get; set; }
 
-        public int CO2 { get; set; }
+
 
         public int Amount { get; set; }
 
-        public string FoodPlanId { get; set; }
+        public string RecipeId { get; set; }
+
+
 
     }
 }
