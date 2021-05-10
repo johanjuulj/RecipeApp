@@ -13,5 +13,7 @@ namespace RecipeApp.Models
         //IEnumerable<Recipe> SearchRecipes { get; }
         Recipe GetRecipeById(int recipeId);
 
+        void CreateRecipe(Recipe recipe);
+
     }
 }

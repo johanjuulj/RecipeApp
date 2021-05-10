@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Models
 {
-    public class FoodPlan
+    public class FoodPlan 
     {
         private readonly AppDbContext _db;
 

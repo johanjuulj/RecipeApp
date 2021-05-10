@@ -28,7 +28,7 @@ namespace RecipeApp.Models
         //ingredientlist id
         //public int IngredientId { get; set; }
         ////add process/amount to future versions for now we only calculate co2 footprint, 
-        public IDictionary<Ingredient, int> ILDictionary = new Dictionary<Ingredient, int>();
+        public IDictionary<RecipeIngredient, int> RecipeIngredients = new Dictionary<RecipeIngredient, int>();
 
     }
 }

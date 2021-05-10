@@ -21,6 +21,32 @@ namespace RecipeApp.Controllers
 
             return View(recipeListViewModel);
         }
+        public ViewResult Create()
+        {
+            
+
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult CreateNew(Recipe recipe)
+        {
+
+
+
+            if (recipe == null)
+            {
+                ModelState.AddModelError("", "Your recipe is invalid please check your inputs and try again");
+            }
+
+            _recipeRepository.CreateRecipe(recipe);
+
+            return View("List");
+
+
+
+
+        }
 
         public IActionResult Details(int id)
         {

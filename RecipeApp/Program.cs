@@ -13,7 +13,7 @@ namespace RecipeApp
     public class Program
     {
 
-        public IngredientList IL1 = new IngredientList();
+        
         public static void Main(string[] args)
         {
 

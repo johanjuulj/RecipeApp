@@ -22,6 +22,11 @@ namespace RecipeApp.Models
         
         public IEnumerable<Recipe> GetAllRecipes1 => throw new NotImplementedException();
 
+        public void CreateRecipe(Recipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
         public Recipe GetRecipeById(int recipeId)
         {
             return GetAllRecipes.FirstOrDefault(x => x.Id == recipeId);
