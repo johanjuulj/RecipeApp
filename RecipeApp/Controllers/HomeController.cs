@@ -20,7 +20,7 @@ namespace RecipeApp.Controllers
         {
             var homeViewModel = new HomeViewModel
             {
-                SelectedRecipes = _db.GetAllRecipes
+                SelectedRecipes = _db.GetAllRecipes()
 
         };
             return View(homeViewModel);

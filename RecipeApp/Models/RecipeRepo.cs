@@ -26,6 +26,20 @@ namespace RecipeApp.Models
             _db.SaveChanges();
 
         }
+
+
+        public void RemoveRecipe(Recipe recipe)
+        {
+            var localRecipe =
+                    _db.Recipes.SingleOrDefault(
+                        s => s.Id == recipe.Id);
+
+            
+            _db.Recipes.Remove(localRecipe);
+            _db.SaveChanges();
+
+            
+        }
         //public void CreateOrder(Recipe recipe)
         //{
 
@@ -53,9 +67,9 @@ namespace RecipeApp.Models
         //    _appDbContext.SaveChanges();
         //}
 
-        public IEnumerable<Recipe> GetAllRecipes 
+        public IEnumerable<Recipe> GetAllRecipes() 
         { 
-            get
+            
             {
 
                 //se code snippet on how to .Include ingredients
