@@ -34,7 +34,8 @@ namespace RecipeApp
 
             services.AddScoped<IRecipeRepo, RecipeRepo>(); //add inmemory to change DB
             services.AddScoped<IIngredientRepo, IngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
-            
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             //when the user comes on the site we invoke the get foodplan method to check and whether there is an existing foodplan or create one
             services.AddScoped<FoodPlan>(fp => FoodPlan.GetPlan(fp));
 

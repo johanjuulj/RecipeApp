@@ -19,6 +19,9 @@ namespace RecipeApp.Models
 
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //sets foreign keys in RecipeIngredients
