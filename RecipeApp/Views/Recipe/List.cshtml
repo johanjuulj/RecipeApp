@@ -3,19 +3,21 @@
 
 
     <h1>Welcome to the recipe mania</h1>
-    
-    @foreach (var recipe in Model.Recipes)
-    {
-<div class="col-sm-4 col-lg-4 col-md-4">
-    <div class="thumbnail">
-        
-        <div class="caption">
-            <h3 class="pull-right">@recipe.Price.ToString("c")</h3>
-            <h3>
-                <a>@recipe.Name</a>
-            </h3>
-            <p>@recipe.Kitchen</p>
-        </div>
+    <div class="w-100 p-3">
+        @foreach (var recipe in Model.Recipes)
+        {
+            <partial name="_RecipeCard" model="recipe" />
+        }
     </div>
-</div>
-    }
+        <br />
+<h1> Does this go inbetween? </h1>
+
+        <div class="w-100 p-3">
+            <div class="crateNew">
+                <p class="button">
+                    <a class="btn btn-primary"
+                       asp-controller="Recipe"
+                       asp-action="Create">Create new recipe</a>
+                </p>
+            </div>
+        </div>

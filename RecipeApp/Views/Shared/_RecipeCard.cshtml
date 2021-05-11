@@ -1,0 +1,24 @@
+﻿@model Recipe 
+
+
+
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="thumbnail">
+        <img src="@Model.ImageUrl" alt="">
+        <div class="caption">
+
+            <h3>
+                <a asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+            </h3>
+            <p>@Model.Kitchen</p>
+        </div>
+        <div class="addToPlan">
+            <p class="button">
+                <a class="btn btn-primary"
+                   asp-controller="FoodPlan"
+                   asp-action="AddToFoodPlan"
+                   asp-route-recipeId="@Model.Id">Add to food plan</a>
+            </p>
+        </div>
+    </div>
+</div>

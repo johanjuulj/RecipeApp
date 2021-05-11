@@ -1,0 +1,36 @@
+﻿@model FoodPlanViewModel
+
+<h2>Your shopping cart</h2>
+<h4>Your food plan for the week.</h4>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Selected amount</th>
+            <th>Recipe</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model.FoodPlan.FoodPlanRecipes)
+        {
+            <tr>
+                <td class="text-center">@recipe.Amount</td>
+                <td class="text-left">@recipe.Recipe.Name</td>
+                <td class="text-right">@recipe.Recipe.Price.ToString("c")</td>
+                <td class="text-right">
+                    @((recipe.Amount * recipe.Recipe.Price).ToString("c"))
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.ShoppingCartTotal.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Models
 {
-    public class InMemoryRecipeRepo : IRecipeRepo
+    public class InMemoryRecipeRepo 
     {
 
         //should probably be a list instead of a method including a list of all
@@ -22,9 +22,19 @@ namespace RecipeApp.Models
         
         public IEnumerable<Recipe> GetAllRecipes1 => throw new NotImplementedException();
 
+        public void CreateRecipe(Recipe recipe)
+        {
+            throw new NotImplementedException();
+        }
+
         public Recipe GetRecipeById(int recipeId)
         {
             return GetAllRecipes.FirstOrDefault(x => x.Id == recipeId);
+        }
+
+        public void RemoveRecipe(Recipe recipe)
+        {
+            throw new NotImplementedException();
         }
     }
 }

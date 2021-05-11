@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,11 +25,26 @@ namespace RecipeApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           // services.AddDbContext<AppDbContext>(options =>
+            //options.UseSqlServer("DefaultConnection"));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+           
+
+            services.AddScoped<IRecipeRepo, RecipeRepo>(); //add inmemory to change DB
+            services.AddScoped<IIngredientRepo, IngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
+            
+            //when the user comes on the site we invoke the get foodplan method to check and whether there is an existing foodplan or create one
+            services.AddScoped<FoodPlan>(fp => FoodPlan.GetPlan(fp));
+
+            //adds access to HTTP conext and by so to the cookie session
+            services.AddHttpContextAccessor();
+            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddScoped<IRecipeRepo, InMemoryRecipeRepo>();
-            services.AddScoped<IIngredientRepo, InMemoryIngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline. /Middlewares
@@ -47,6 +63,7 @@ namespace RecipeApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
 
             app.UseRouting();
@@ -55,7 +72,10 @@ namespace RecipeApp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                //difference between convetion based routing and attribute based routing (API)?
+                
+                //endpoints.MapRazorPages();
+
 
                 endpoints.MapControllerRoute(
                     name: "default",
