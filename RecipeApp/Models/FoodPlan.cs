@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Models
 {
-    public class FoodPlan
+    public class FoodPlan 
     {
         private readonly AppDbContext _db;
 
         public string FoodPlanId { get; set; }
 
-        public List<FoodPlanItem> FoodPlanRecipes { get; set; }
+        public List<FoodPlanRecipe> FoodPlanRecipes { get; set; } 
 
+        
 
         private FoodPlan(AppDbContext db)
         {
@@ -38,26 +39,34 @@ namespace RecipeApp.Models
 
         public void AddToPlan(Recipe recipe, int amount)
         {
-            var foodPlanItem =
-                    _db.FoodPlanItems.SingleOrDefault(
-                        x => x.Recipe.Id == recipe.Id && x.FoodPlanId == FoodPlanId);
+            Console.WriteLine(recipe.Id);
+            var foodPlanRecipe =
+                   _db.FoodPlanItems.SingleOrDefault(
+                       x => x.Recipe.Id == recipe.Id && x.FoodPlanId == FoodPlanId);
 
-            if (foodPlanItem == null)
+            
+
+
+            
+            Console.WriteLine("hi");
+            if (foodPlanRecipe == null)
             {
-                foodPlanItem = new FoodPlanItem
+                Console.WriteLine("it's null");
+                foodPlanRecipe = new FoodPlanRecipe
                 {
                     FoodPlanId = FoodPlanId,
                     Recipe = recipe,
-                    CO2 = 1
-
-                    //amount
+                    //CO2 = 1,
+                    Amount = 1
+                    
                 };
 
-                _db.FoodPlanItems.Add(foodPlanItem);
+                _db.FoodPlanItems.Add(foodPlanRecipe);
             }
             else
             {
-                foodPlanItem.Amount++;
+                Console.WriteLine("not null");
+                foodPlanRecipe.Amount++;
             }
             _db.SaveChanges();
         }
@@ -88,7 +97,24 @@ namespace RecipeApp.Models
             return localAmount;
         }
 
-        public List<FoodPlanItem> GetFoodPlanRecipes()
+        public int Total()
+        {
+            int localTotal = 0;
+            if (FoodPlanRecipes != null)
+            {
+
+                foreach (var x in FoodPlanRecipes)
+                {
+                   
+                    
+                    
+                    localTotal = localTotal + x.Amount;
+                }
+            }
+            return localTotal;
+        }
+
+        public List<FoodPlanRecipe> GetFoodPlanRecipes()
         {
             return FoodPlanRecipes ??
                    (FoodPlanRecipes =
@@ -107,6 +133,11 @@ namespace RecipeApp.Models
 
             _db.SaveChanges();
         }
+
+       
+
+       
+
         //add sum function to get full co2 output of foodplan
         //public decimal GetFoodPlanTotal()
         //{

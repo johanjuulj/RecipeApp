@@ -11,14 +11,20 @@
             <a href="#">@Model.Name</a>
         </h3>
         <h4>@Model.ShortDescription</h4>
-       
+        <h4>@Model.Id</h4>
+
         <div class="addToPlan">
             <p class="button">
                 <a class="btn btn-primary" asp-controller="FoodPlan" asp-action="AddToFoodPlan"
-                   asp-route-reipeId="@Model.Id">Add to food plan</a>
+                   asp-route-recipeId="@Model.Id">Add to food plan</a>
             </p>
         </div>
-
+        <div class="deleteRecipe">
+            <p class="button">
+                <a class="btn btn-warning" asp-controller="Recipe" asp-action="Remove"
+                   asp-route-recipeId="@Model.Id">Remove Recipe</a>
+            </p>
+        </div>
 
     </div>
 </div>

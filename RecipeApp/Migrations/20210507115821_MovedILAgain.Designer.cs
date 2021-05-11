@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210507115821_MovedILAgain")]
+    partial class MovedILAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,6 +100,29 @@ namespace RecipeApp.Migrations
                             Name = "Tomato",
                             ShelfLifeDays = 12
                         });
+                });
+
+            modelBuilder.Entity("RecipeApp.Models.IngredientList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecipeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("IngredientLists");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
@@ -203,21 +228,6 @@ namespace RecipeApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.RecipeIngredient", b =>
-                {
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientId", "RecipeId");
-
-                    b.HasIndex("RecipeId");
-
-                    b.ToTable("RecipeIngredients");
-                });
-
             modelBuilder.Entity("RecipeApp.Models.FoodPlanRecipe", b =>
                 {
                     b.HasOne("RecipeApp.Models.Recipe", "Recipe")
@@ -225,19 +235,11 @@ namespace RecipeApp.Migrations
                         .HasForeignKey("RecipeId");
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.RecipeIngredient", b =>
+            modelBuilder.Entity("RecipeApp.Models.IngredientList", b =>
                 {
                     b.HasOne("RecipeApp.Models.Ingredient", "Ingredient")
-                        .WithMany("RecipeIngredients")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecipeApp.Models.Recipe", "Recipe")
                         .WithMany()
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IngredientId");
                 });
 #pragma warning restore 612, 618
         }

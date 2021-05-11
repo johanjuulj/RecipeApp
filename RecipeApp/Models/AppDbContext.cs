@@ -15,10 +15,15 @@ namespace RecipeApp.Models
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
 
-        public DbSet<FoodPlanItem> FoodPlanItems { get; set; }
+        public DbSet<FoodPlanRecipe> FoodPlanItems { get; set; }
+
+        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //sets foreign keys in RecipeIngredients
+            modelBuilder.Entity<RecipeIngredient>().HasKey(c => new { c.IngredientId, c.RecipeId });
+
             base.OnModelCreating(modelBuilder);
 
             //seed categories
