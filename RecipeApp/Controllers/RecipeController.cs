@@ -63,7 +63,7 @@ namespace RecipeApp.Controllers
                 _recipeRepository.RemoveRecipe(selectedRecipe);
             }
             Console.WriteLine("much null");
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
 
