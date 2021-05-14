@@ -2,6 +2,7 @@
 using RecipeApp.Models;
 using RecipeApp.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RecipeApp.Controllers
@@ -9,12 +10,13 @@ namespace RecipeApp.Controllers
     public class RecipeController : Controller
     {
         private readonly IRecipeRepo _recipeRepository;
-       
 
-        public RecipeController(IRecipeRepo recipeRepo)
+        public IIngredientRepo _ingredientRepo { get; }
+
+        public RecipeController(IRecipeRepo recipeRepo, IIngredientRepo ingredientRepo)
         {
             _recipeRepository = recipeRepo;
-
+            _ingredientRepo = ingredientRepo;
         }
 
         public ViewResult List()
@@ -24,21 +26,36 @@ namespace RecipeApp.Controllers
 
             return View(recipeListViewModel);
         }
+        public IEnumerable<Ingredient> Ingr { get; set; }
+
         public ViewResult Create()
         {
-           //should  this one be made obsolete by including it in CreteNew with an  if statement? 
+            //should  this one be made obsolete by including it in CreteNew with an  if statement? 
+            RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel()
+            {
+                Recipe = null,
+                Ingredients = _ingredientRepo.AllIngredients(),
+                Kitchen = new Cuisine()
 
-            return View();
+            };
+            
+            Ingr = _ingredientRepo.AllIngredients();
+            
+            foreach(var i in Ingr)
+            {
+                Console.WriteLine(i.Name);
+            }
+            
+
+            return View(recipeCreateViewModel);
         }
 
         [HttpPost]
-        public ViewResult CreateNew(Recipe recipe)
+        public ViewResult Create(Recipe recipe)
         {
-            var homeViewModel = new HomeViewModel
-            {
-                SelectedRecipes = _recipeRepository.GetAllRecipes()
+           
 
-            }; 
+
 
 
             if (recipe == null)
@@ -48,7 +65,13 @@ namespace RecipeApp.Controllers
            
             _recipeRepository.CreateRecipe(recipe);
 
-            
+
+
+            var homeViewModel = new HomeViewModel
+            {
+                SelectedRecipes = _recipeRepository.GetAllRecipes()
+
+            };
             return View("Views/Home/Index.cshtml", homeViewModel);
 
         }

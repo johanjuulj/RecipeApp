@@ -1,4 +1,4 @@
-﻿@model RecipeApp.Models.Recipe
+﻿@model RecipeCreateViewModel
 
 
 @{
@@ -11,41 +11,70 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateNew">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Recipe.Name" class="control-label"></label>
+                <input asp-for="Recipe.Name" class="form-control" />
+                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
-                <input asp-for="ShortDescription" class="form-control" />
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                <label asp-for="Recipe.ShortDescription" class="control-label"></label>
+                <input asp-for="Recipe.ShortDescription" class="form-control" />
+                <span asp-validation-for="Recipe.ShortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="Recipe.Price" class="control-label"></label>
+                <input asp-for="Recipe.Price" class="form-control" />
+                <span asp-validation-for="Recipe.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <label asp-for="Recipe.ImageUrl" class="control-label"></label>
+                <input asp-for="Recipe.ImageUrl" class="form-control" />
+                <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitchen" class="control-label"></label>
-                <select asp-for="Kitchen" class="form-control"></select>
-                <span asp-validation-for="Kitchen" class="text-danger"></span>
+                <label asp-for="Recipe.Kitchen" class="control-label"></label>
+                <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" class="form-control"></select>
+                <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
             </div>
-         
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+
+        <input list="brow">
+        <datalist id="brow" asp-items="Html.GetEnumSelectList<Cuisine>()">
+            
+        </datalist>
+
     </div>
+
+
 </div>
+
+@foreach (var ingredient in Model.Ingredients)
+{
+    <h1> @ingredient.Name </h1>
+}
+
+<asp:dropdownlist id="myDropDownlistID" width="300px" runat="server">
+    <asp:listitem text="Select Color"></asp:listitem>
+    <asp:listitem text="Red"></asp:listitem>
+    <asp:listitem text="Green"></asp:listitem>
+    <asp:listitem text="Blue"></asp:listitem>
+    <asp:listitem text="Pink"></asp:listitem>
+    <asp:listitem text="Yellow"></asp:listitem>
+    <asp:listitem text="Lime"></asp:listitem>
+    <asp:listitem text="Black"></asp:listitem>
+    <asp:listitem text="Purple"></asp:listitem>
+    <asp:listitem text="Deep Pink"></asp:listitem>
+    <asp:listitem text="Orange"></asp:listitem>
+    <asp:listitem text="Light Pink"></asp:listitem>
+</asp:dropdownlist>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

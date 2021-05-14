@@ -29,5 +29,12 @@ namespace RecipeApp.Models
             return _db.Ingredients.FirstOrDefault(r => r.Id == ingredientId);
 
         }
+
+        public IEnumerable<Ingredient> AllIngredients()
+        {
+
+            return _db.Ingredients;
+
+        }
     }
 }

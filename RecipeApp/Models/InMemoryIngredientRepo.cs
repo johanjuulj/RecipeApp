@@ -23,5 +23,10 @@ namespace RecipeApp.Models
         {
             throw new NotImplementedException();
         }
+
+        IEnumerable<Ingredient> IIngredientRepo.AllIngredients()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

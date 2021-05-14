@@ -11,6 +11,7 @@ namespace RecipeApp.Models
 
         //IEnumerable<Recipe> SearchRecipes { get; }
         Ingredient GetIngredientById(int ingredientId);
+        IEnumerable<Ingredient> AllIngredients();
 
     }
 }

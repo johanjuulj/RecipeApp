@@ -1,89 +1,89 @@
-﻿@model Order
+﻿@model OrderCheckOutViewModel
 
 <form asp-action="CheckOut" method="post" class="form-horizontal" role="form">
     <h4>Order your weekly foodplan here</h4>
-    
+
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
-        <label asp-for="LastName" class="col-md-2 control-label"></label>
+        <label asp-for="Order.LastName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
+            <input asp-for="Order.LastName" class="form-control" />
+            <span asp-validation-for="Order.LastName" class="text-danger"></span>
         </div>
-        
+
 
     </div>
 
     <div class="form-group">
-        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <label asp-for="Order.FirstName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <input asp-for="Order.FirstName" class="form-control" />
+            <span asp-validation-for="Order.FirstName" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="AddressLine1" class="col-md-2 control-label"></label>
+        <label asp-for="Order.AddressLine1" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="AddressLine1" class="form-control" />
-            <span asp-validation-for="AddressLine1" class="text-danger"></span>
+            <input asp-for="Order.AddressLine1" class="form-control" />
+            <span asp-validation-for="Order.AddressLine1" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="AddressLine2" class="col-md-2 control-label"></label>
+        <label asp-for="Order.AddressLine2" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="AddressLine2" class="form-control" />
-            <span asp-validation-for="AddressLine2" class="text-danger"></span>
+            <input asp-for="Order.AddressLine2" class="form-control" />
+            <span asp-validation-for="Order.AddressLine2" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="ZipCode" class="col-md-2 control-label"></label>
+        <label asp-for="Order.ZipCode" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="ZipCode" class="form-control" />
-            <span asp-validation-for="ZipCode" class="text-danger"></span>
+            <input asp-for="Order.ZipCode" class="form-control" />
+            <span asp-validation-for="Order.ZipCode" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="City" class="col-md-2 control-label"></label>
+        <label asp-for="Order.City" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="City" class="form-control" />
-            <span asp-validation-for="City" class="text-danger"></span>
+            <input asp-for="Order.City" class="form-control" />
+            <span asp-validation-for="Order.City" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="State" class="col-md-2 control-label"></label>
+        <label asp-for="Order.State" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="State" class="form-control" />
-            <span asp-validation-for="State" class="text-danger"></span>
+            <input asp-for="Order.State" class="form-control" />
+            <span asp-validation-for="Order.State" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="Country" class="col-md-2 control-label"></label>
+        <label asp-for="Order.Country" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="Country" class="form-control" />
-            <span asp-validation-for="Country" class="text-danger"></span>
+            <input asp-for="Order.Country" class="form-control" />
+            <span asp-validation-for="Order.Country" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="PhoneNumber" class="col-md-2 control-label"></label>
+        <label asp-for="Order.PhoneNumber" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="PhoneNumber" class="form-control" />
-            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <input asp-for="Order.PhoneNumber" class="form-control" />
+            <span asp-validation-for="Order.PhoneNumber" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <label asp-for="Order.Email" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Order.Email" class="form-control" />
+            <span asp-validation-for="Order.Email" class="text-danger"></span>
         </div>
     </div>
 
@@ -93,3 +93,24 @@
         </div>
     </div>
 </form>
+
+<h1> You are ordering: </h1>
+
+<!-- Insert a viewcomponent/partial view instead-->
+
+@foreach (var recipe in Model.RecipeList)
+{
+    <tr>
+        <td class="text-center">@recipe.Amount</td>
+        <td class="text-left">@recipe.Recipe.Name</td>
+        <td class="text-right">@recipe.Recipe.Price.ToString("c")</td>
+        <td class="text-right">
+            @((recipe.Amount * recipe.Recipe.Price).ToString("c"))
+        </td>
+    </tr>
+}
+
+@foreach (var recipe in Model.RecipeList)
+{
+    <h1> @recipe.Recipe.Name </h1>
+}

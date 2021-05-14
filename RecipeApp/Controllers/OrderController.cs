@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeApp.Models;
+using RecipeApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,18 +20,27 @@ namespace RecipeApp.Controllers
             _orderRepo = orderRepo;
             _foodPlan = foodPlan;
         }
+        [HttpGet]
         public IActionResult CheckOut()
         {
-            return View();
+            Console.WriteLine("Am i ever called");
+            OrderCheckOutViewModel orderCheckOutViewModel = new OrderCheckOutViewModel()
+            {
+                Order = null,
+                RecipeList = _foodPlan.GetFoodPlanRecipes()
+            };
+            return View(orderCheckOutViewModel);
         }
 
         [HttpPost]
         public IActionResult CheckOut(Order order)
         {
+
+
             var recipes = _foodPlan.GetFoodPlanRecipes();
             _foodPlan.FoodPlanRecipes = recipes;
 
-            if(_foodPlan.FoodPlanRecipes.Count == 0)
+            if (_foodPlan.FoodPlanRecipes.Count == 0)
             {
                 ModelState.AddModelError("", "You don't have a food plan ready, add some recipes first");
 
