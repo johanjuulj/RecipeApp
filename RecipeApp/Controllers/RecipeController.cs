@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using RecipeApp.Models;
 using RecipeApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
 
 namespace RecipeApp.Controllers
 {
@@ -25,6 +29,21 @@ namespace RecipeApp.Controllers
             recipeListViewModel.Recipes = _recipeRepository.GetAllRecipes();
 
             return View(recipeListViewModel);
+        }
+
+       //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
+        public IActionResult AddIngredient(int id)
+        {
+
+            Console.WriteLine("it's called");
+            
+            AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
+            addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(id);
+
+            addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
+            addIngredientViewModel.NumerOfIngredients = id;
+            
+            return View(addIngredientViewModel);
         }
         public IEnumerable<Ingredient> Ingr { get; set; }
 
@@ -65,9 +84,10 @@ namespace RecipeApp.Controllers
            
             _recipeRepository.CreateRecipe(recipe);
 
+        
 
 
-            var homeViewModel = new HomeViewModel
+        var homeViewModel = new HomeViewModel
             {
                 SelectedRecipes = _recipeRepository.GetAllRecipes()
 
@@ -77,15 +97,15 @@ namespace RecipeApp.Controllers
         }
         public RedirectToActionResult Remove(int recipeId)
         {
-            Console.WriteLine(recipeId);
+            
             var selectedRecipe = _recipeRepository.GetAllRecipes().FirstOrDefault(p => p.Id == recipeId);
 
             if (selectedRecipe != null)
             {
-                Console.WriteLine("not null");
+                
                 _recipeRepository.RemoveRecipe(selectedRecipe);
             }
-            Console.WriteLine("much null");
+            
             return RedirectToAction("List");
         }
 
@@ -93,6 +113,7 @@ namespace RecipeApp.Controllers
 
         public IActionResult Details(int id)
         {
+            Console.WriteLine(id);
             var recipe = _recipeRepository.GetRecipeById(id);
 
             if (recipe == null) return NotFound();

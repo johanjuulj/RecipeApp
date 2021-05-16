@@ -35,45 +35,58 @@
             </div>
             <div class="form-group">
                 <label asp-for="Recipe.Kitchen" class="control-label"></label>
-                <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" class="form-control"></select>
+                <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" name="simpleSelect2" class="form-control" id="simpleSelect2"></select>
+
                 <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
             </div>
+
+            <div>
+                <input id="btnAdd" type="button" value="Add More Ingredients" onclick="AddTextBox()" />
+                <br />
+                <br />
+                <div id="TextBoxContainer">
+                    <!--Textboxes will be added here -->
+                </div>
+                <br />
+                <asp:Button ID="btnPost" runat="server" Text="Post" OnClick="Post" />
+
+
+            </div>
+
 
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+
+
+
+
+
         </form>
 
         <input list="brow">
         <datalist id="brow" asp-items="Html.GetEnumSelectList<Cuisine>()">
-            
         </datalist>
+
+
+
+
+
+
 
     </div>
 
 
 </div>
 
-@foreach (var ingredient in Model.Ingredients)
-{
-    <h1> @ingredient.Name </h1>
-}
 
-<asp:dropdownlist id="myDropDownlistID" width="300px" runat="server">
-    <asp:listitem text="Select Color"></asp:listitem>
-    <asp:listitem text="Red"></asp:listitem>
-    <asp:listitem text="Green"></asp:listitem>
-    <asp:listitem text="Blue"></asp:listitem>
-    <asp:listitem text="Pink"></asp:listitem>
-    <asp:listitem text="Yellow"></asp:listitem>
-    <asp:listitem text="Lime"></asp:listitem>
-    <asp:listitem text="Black"></asp:listitem>
-    <asp:listitem text="Purple"></asp:listitem>
-    <asp:listitem text="Deep Pink"></asp:listitem>
-    <asp:listitem text="Orange"></asp:listitem>
-    <asp:listitem text="Light Pink"></asp:listitem>
-</asp:dropdownlist>
+
+
+  
+
+
 
 
 <div>
@@ -85,3 +98,46 @@ section Scripts {
     {await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
     -->
+
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        function GetDynamicTextBox(value) {
+            return '<input name = "DynamicTextBox" type="text" value = "' + value + '" />' +
+                '<input type="button" value="Remove" onclick = "RemoveTextBox(this)" />' +
+                '<select asp-for="Recipe.Kitchen"  name="simpleSelect2" class="form-control" id="simpleSelect2"><option>Apple</option><option> Pear </option >  <option>Banana</option><option>Orange</option></select>'
+
+        }
+        function AddTextBox() {
+            var div = document.createElement('DIV');
+            div.innerHTML = GetDynamicTextBox("");
+            document.getElementById("TextBoxContainer").appendChild(div);
+        }
+
+        function RemoveTextBox(div) {
+            document.getElementById("TextBoxContainer").removeChild(div.parentNode);
+        }
+
+        function RecreateDynamicTextboxes() {
+            var values = eval('<%=Values%>');
+            if (values != null) {
+                var html = "";
+                for (var i = 0; i < values.length; i++) {
+                    html += "<div>" + GetDynamicTextBox(values[i]) + "</div>";
+                }
+                document.getElementById("TextBoxContainer").innerHTML = html;
+            }
+        }
+        window.onload = RecreateDynamicTextboxes;
+    </script>
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script src="~/js/select2.js"></script>
+
+}
+
+
+
+
+
