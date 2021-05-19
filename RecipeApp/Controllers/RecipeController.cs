@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RecipeApp.Models;
 using RecipeApp.ViewModels;
 using System;
@@ -7,12 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
+using System.Threading.Tasks;
 
 namespace RecipeApp.Controllers
 {
     public class RecipeController : Controller
+
+
     {
+
+        private readonly IHtmlHelper htmlHelper;
         private readonly IRecipeRepo _recipeRepository;
 
         public IIngredientRepo _ingredientRepo { get; }
@@ -32,16 +37,25 @@ namespace RecipeApp.Controllers
         }
 
        //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
-        public IActionResult AddIngredient(int id)
+       [HttpPost]
+        public ActionResult AddIngredient(RecipeDetailsViewModel model)
         {
 
-            Console.WriteLine("it's called");
             
+
+          
+
+            //int id = model.numberOfRecipes;
+
+            //Console.WriteLine("now numberofecipes are " + model.numberOfRecipes);
+            
+            //Console.WriteLine(model.Recipe.Id + "Recipe ID is working");
+
             AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
-            addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(id);
+            addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
 
             addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
-            addIngredientViewModel.NumerOfIngredients = id;
+            addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
             
             return View(addIngredientViewModel);
         }
@@ -73,10 +87,6 @@ namespace RecipeApp.Controllers
         public ViewResult Create(Recipe recipe)
         {
            
-
-
-
-
             if (recipe == null)
             {
                 ModelState.AddModelError("", "Your recipe is invalid please check your inputs and try again");
@@ -113,12 +123,21 @@ namespace RecipeApp.Controllers
 
         public IActionResult Details(int id)
         {
-            Console.WriteLine(id);
+
             var recipe = _recipeRepository.GetRecipeById(id);
 
             if (recipe == null) return NotFound();
 
-            return View(recipe);
+            RecipeDetailsViewModel recipeDetailsViewModel = new RecipeDetailsViewModel()
+            {
+                Recipe = recipe,
+                numberOfRecipes = 2
+
+            };
+
+            
+            Console.WriteLine("now Recipe ID and name are " + recipeDetailsViewModel.Recipe.Id + recipeDetailsViewModel.Recipe.Name);
+            return View(recipeDetailsViewModel);
         }
         public ViewResult Index()
         {
