@@ -30,11 +30,10 @@
         <form method="post" asp-action="AddIngredient" asp-controller="Recipe">
 
             <div class="form-group">
-                <label asp-for="@Model.Recipe.Id" class="col-md-2 control-label" ></label>
-                <label asp-for="@Model.Recipe.Name" class="col-md-2 control-label">@Model.Recipe.Name</label>
-                <input type="hidden" asp-for="@Model.Recipe.Id" value="@Model.Recipe.Id"/>
+              
+                <input type="hidden" asp-for="@Model.Recipe.Id" value="@Model.Recipe.Id" class="form-control"/>
 
-                <input asp-for="@Model.recipeId" class="form-control" value="@Model.Recipe.Id"/>
+                <input type="hidden"  asp-for="@Model.recipeId" class="form-control" value="@Model.Recipe.Id"/>
             </div>
 
 
@@ -46,11 +45,7 @@
                     </div>
                 </div>
 
-                <div>
-
-                    <input type="text" name="test" class="form-control" />
-
-                </div>
+              
 
 
                 <div>

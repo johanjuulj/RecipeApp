@@ -44,12 +44,7 @@ namespace RecipeApp.Controllers
             
 
           
-
-            //int id = model.numberOfRecipes;
-
-            //Console.WriteLine("now numberofecipes are " + model.numberOfRecipes);
-            
-            //Console.WriteLine(model.Recipe.Id + "Recipe ID is working");
+            //checking
 
             AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
             addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
