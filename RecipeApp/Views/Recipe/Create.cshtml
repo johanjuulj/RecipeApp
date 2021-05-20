@@ -1,4 +1,4 @@
-﻿@model RecipeApp.Models.Recipe
+﻿@model RecipeCreateViewModel
 
 
 @{
@@ -11,41 +11,83 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateNew">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Recipe.Name" class="control-label"></label>
+                <input asp-for="Recipe.Name" class="form-control" />
+                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
-                <input asp-for="ShortDescription" class="form-control" />
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                <label asp-for="Recipe.ShortDescription" class="control-label"></label>
+                <input asp-for="Recipe.ShortDescription" class="form-control" />
+                <span asp-validation-for="Recipe.ShortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="Recipe.Price" class="control-label"></label>
+                <input asp-for="Recipe.Price" class="form-control" />
+                <span asp-validation-for="Recipe.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                <label asp-for="Recipe.ImageUrl" class="control-label"></label>
+                <input asp-for="Recipe.ImageUrl" class="form-control" />
+                <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Kitchen" class="control-label"></label>
-                <select asp-for="Kitchen" class="form-control"></select>
-                <span asp-validation-for="Kitchen" class="text-danger"></span>
+                <label asp-for="Recipe.Kitchen" class="control-label"></label>
+                <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" name="simpleSelect2" class="form-control" id="simpleSelect2"></select>
+
+                <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
             </div>
-         
+
+            <div>
+                <input id="btnAdd" type="button" value="Add More Ingredients" onclick="AddTextBox()" />
+                <br />
+                <br />
+                <div id="TextBoxContainer">
+                    <!--Textboxes will be added here -->
+                </div>
+                <br />
+                <asp:Button ID="btnPost" runat="server" Text="Post" OnClick="Post" />
+
+
+            </div>
+
+
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+
+
+
+
+
         </form>
+
+        <input list="brow">
+        <datalist id="brow" asp-items="Html.GetEnumSelectList<Cuisine>()">
+        </datalist>
+
+
+
+
+
+
+
     </div>
+
+
 </div>
+
+
+
+
+  
+
+
+
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -56,3 +98,46 @@ section Scripts {
     {await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
     -->
+
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        function GetDynamicTextBox(value) {
+            return '<input name = "DynamicTextBox" type="text" value = "' + value + '" />' +
+                '<input type="button" value="Remove" onclick = "RemoveTextBox(this)" />' +
+                '<select asp-for="Recipe.Kitchen"  name="simpleSelect2" class="form-control" id="simpleSelect2"><option>Apple</option><option> Pear </option >  <option>Banana</option><option>Orange</option></select>'
+
+        }
+        function AddTextBox() {
+            var div = document.createElement('DIV');
+            div.innerHTML = GetDynamicTextBox("");
+            document.getElementById("TextBoxContainer").appendChild(div);
+        }
+
+        function RemoveTextBox(div) {
+            document.getElementById("TextBoxContainer").removeChild(div.parentNode);
+        }
+
+        function RecreateDynamicTextboxes() {
+            var values = eval('<%=Values%>');
+            if (values != null) {
+                var html = "";
+                for (var i = 0; i < values.length; i++) {
+                    html += "<div>" + GetDynamicTextBox(values[i]) + "</div>";
+                }
+                document.getElementById("TextBoxContainer").innerHTML = html;
+            }
+        }
+        window.onload = RecreateDynamicTextboxes;
+    </script>
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script src="~/js/select2.js"></script>
+
+}
+
+
+
+
+

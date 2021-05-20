@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,11 +31,14 @@ namespace RecipeApp
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
+
            
 
             services.AddScoped<IRecipeRepo, RecipeRepo>(); //add inmemory to change DB
             services.AddScoped<IIngredientRepo, IngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
-            
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             //when the user comes on the site we invoke the get foodplan method to check and whether there is an existing foodplan or create one
             services.AddScoped<FoodPlan>(fp => FoodPlan.GetPlan(fp));
 
@@ -67,6 +71,7 @@ namespace RecipeApp
 
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -74,13 +79,13 @@ namespace RecipeApp
             {
                 //difference between convetion based routing and attribute based routing (API)?
                 
-                //endpoints.MapRazorPages();
+                
 
 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+                endpoints.MapRazorPages();
             });
         }
     }
