@@ -29,16 +29,16 @@
             <p class="button">
 
 
-
+                @Html.Label("How many ingredients would you like to add")
+                @Html.TextBox("numberOfIngredients")
 
                 <a class="btn btn-warning" asp-controller="Recipe" asp-action="AddIngredient"
-                   asp-route-id="@Model.Id">Add Ingredients</a>
+                   asp-route-id="9">Add Ingredients</a>
             </p>
         </div>
 
     </div>
 
-    @Html.Label("How many ingredients would you like to add")
-    @Html.TextBox("numberOfIngredients")
+  
 
 </div>
