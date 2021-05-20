@@ -1,44 +1,60 @@
-﻿@model Recipe
+﻿@model RecipeDetailsViewModel
 
 
-<h2>@Model.Name</h2>
+<h2>@Model.Recipe.Name</h2>
 
 <div class="thumbnail">
-    <img alt="@Model.Name" src="@Model.ImageUrl">
+    <img alt="@Model.Recipe.Name" src="@Model.Recipe.ImageUrl">
     <div class="caption-full">
-        <h3 class="pull-right">@Model.Kitchen</h3>
+        <h3 class="pull-right">@Model.Recipe.Kitchen</h3>
         <h3>
-            <a href="#">@Model.Name</a>
+            <a href="#">@Model.Recipe.Name</a>
         </h3>
-        <h4>@Model.ShortDescription</h4>
-        <h4>@Model.Id</h4>
+        <h4>@Model.Recipe.ShortDescription</h4>
+        <h4>@Model.Recipe.Id</h4>
 
         <div class="addToPlan">
             <p class="button">
                 <a class="btn btn-primary" asp-controller="FoodPlan" asp-action="AddToFoodPlan"
-                   asp-route-recipeId="@Model.Id">Add to food plan</a>
+                   asp-route-recipeId="@Model.Recipe.Id">Add to food plan</a>
             </p>
         </div>
         <div class="deleteRecipe">
             <p class="button">
                 <a class="btn btn-warning" asp-controller="Recipe" asp-action="Remove"
-                   asp-route-recipeId="@Model.Id">Remove Recipe</a>
-            </p>
-        </div>
-        <div class="addIngredients">
-            <p class="button">
-
-
-                @Html.Label("How many ingredients would you like to add")
-                @Html.TextBox("numberOfIngredients")
-
-                <a class="btn btn-warning" asp-controller="Recipe" asp-action="AddIngredient"
-                   asp-route-id="9">Add Ingredients</a>
+                   asp-route-recipeId="@Model.Recipe.Id">Remove Recipe</a>
             </p>
         </div>
 
+
+        <form method="post" asp-action="AddIngredient" asp-controller="Recipe">
+
+            <div class="form-group">
+              
+                <input type="hidden" asp-for="@Model.Recipe.Id" value="@Model.Recipe.Id" class="form-control"/>
+
+                <input type="hidden"  asp-for="@Model.recipeId" class="form-control" value="@Model.Recipe.Id"/>
+            </div>
+
+
+                <div class="form-group">
+                    <label asp-for="@Model.numberOfRecipes" class="col-md-2 control-label"></label>
+                    <div class="col-md-5">
+                        <input asp-for="@Model.numberOfRecipes" class="form-control" />
+                        <span asp-validation-for="@Model.numberOfRecipes" class="text-danger"></span>
+                    </div>
+                </div>
+
+              
+
+
+                <div>
+                    <button class="btn btn-warning" type="submit">
+                        Add Ingredients
+                    </button>
+                </div>
+        </form>
+       
     </div>
-
-  
 
 </div>
