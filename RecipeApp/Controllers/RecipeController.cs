@@ -54,6 +54,16 @@ namespace RecipeApp.Controllers
             
             return View(addIngredientViewModel);
         }
+        [HttpPost]
+        public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
+        {
+            Console.Write(model.NumerOfIngredients);
+
+
+            return RedirectToAction("List");
+        }
+
+
         public IEnumerable<Ingredient> Ingr { get; set; }
 
         public ViewResult Create()
@@ -126,7 +136,7 @@ namespace RecipeApp.Controllers
             RecipeDetailsViewModel recipeDetailsViewModel = new RecipeDetailsViewModel()
             {
                 Recipe = recipe,
-                numberOfRecipes = 2
+                numberOfRecipes = 0
 
             };
 

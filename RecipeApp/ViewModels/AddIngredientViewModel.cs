@@ -12,5 +12,7 @@ namespace RecipeApp.ViewModels
         public IEnumerable<Ingredient> Ingredients { get; set; }
 
         public int NumerOfIngredients { get; set; }
+
+        public IDictionary<int, int> RecipeList { get; set; }
     }
 }
