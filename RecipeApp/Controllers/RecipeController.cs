@@ -58,6 +58,14 @@ namespace RecipeApp.Controllers
         public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
         {
             Console.Write(model.NumerOfIngredients);
+          
+
+            foreach (KeyValuePair<int, int> amount in model.RecipeList)
+            {
+                Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
+
+
+            }
 
 
             return RedirectToAction("List");
