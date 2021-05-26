@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
 using RecipeApp.ViewModels;
 using System;
@@ -17,16 +19,20 @@ namespace RecipeApp.Controllers
 
     {
 
-        private readonly IHtmlHelper htmlHelper;
         private readonly IRecipeRepo _recipeRepository;
 
         public IIngredientRepo _ingredientRepo { get; }
 
-        public RecipeController(IRecipeRepo recipeRepo, IIngredientRepo ingredientRepo)
+        private AppDbContext _appDbContext;
+
+        public RecipeController(IRecipeRepo recipeRepo, IIngredientRepo ingredientRepo, AppDbContext appDbContext)
         {
             _recipeRepository = recipeRepo;
             _ingredientRepo = ingredientRepo;
+            _appDbContext = appDbContext;
         }
+
+      
 
         public ViewResult List()
         {
@@ -35,23 +41,39 @@ namespace RecipeApp.Controllers
 
             return View(recipeListViewModel);
         }
+        //remove this and rename List() Index()
+        public ViewResult Index()
+        {
 
-       //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
-       [HttpPost]
+            return View(_recipeRepository.GetAllRecipes());
+        }
+
+
+        //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
+        [HttpPost]
         public ActionResult AddIngredient(RecipeDetailsViewModel model)
         {
 
             
 
-          
-            //checking
 
-            AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
+        //checking
+
+        AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
             addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
 
             addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
             addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
+
             
+
+            foreach (Ingredient i in addIngredientViewModel.Ingredients)
+            {
+                addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
+            }
+            
+            
+
             return View(addIngredientViewModel);
         }
         [HttpPost]
@@ -60,7 +82,7 @@ namespace RecipeApp.Controllers
             Console.Write(model.NumerOfIngredients);
           
 
-            foreach (KeyValuePair<int, int> amount in model.RecipeList)
+            foreach (KeyValuePair<string, int> amount in model.RecipeList)
             {
                 Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
 
@@ -136,7 +158,15 @@ namespace RecipeApp.Controllers
 
         public IActionResult Details(int id)
         {
+            List<RecipeIngredient> localRecipeIngredients = _appDbContext.RecipeIngredients.
+                Include(i => i.Recipe).
+                Where(ri => ri.RecipeId == id).ToList();
 
+
+
+
+            //which get recipe is better?
+            //Recipe rECIPE = _appDbContext.Recipes.Single(r => r.Id == id);
             var recipe = _recipeRepository.GetRecipeById(id);
 
             if (recipe == null) return NotFound();
@@ -144,7 +174,8 @@ namespace RecipeApp.Controllers
             RecipeDetailsViewModel recipeDetailsViewModel = new RecipeDetailsViewModel()
             {
                 Recipe = recipe,
-                numberOfRecipes = 0
+                numberOfRecipes = 0,
+                recipeIngredients = localRecipeIngredients
 
             };
 
@@ -152,11 +183,44 @@ namespace RecipeApp.Controllers
             Console.WriteLine("now Recipe ID and name are " + recipeDetailsViewModel.Recipe.Id + recipeDetailsViewModel.Recipe.Name);
             return View(recipeDetailsViewModel);
         }
-        public ViewResult Index()
+
+        // /Recipe/AddItem/?int
+        public IActionResult AddItem(int id)
         {
-            
-            return View(_recipeRepository.GetAllRecipes());
+            Recipe recipe = _appDbContext.Recipes.Single(r => r.Id == id);
+
+            List<Ingredient> ingredients = _ingredientRepo.GetAllIngredients.ToList();
+
+            //List<Ingredient> ingredients = _appDbContext.Ingredients.ToList();
+
+            return View(new AddRecipeIngredientViewModel(recipe,ingredients));
         }
+
+        [HttpPost]
+        public IActionResult AddItem(AddRecipeIngredientViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ingredientId = model.IngredientId;
+                var recipeId = model.RecipeId;
+
+                IList<RecipeIngredient> existingIngredients = _appDbContext.RecipeIngredients.
+                    Where(ri => ri.IngredientId == ingredientId).
+                    Where(ri => ri.RecipeId == recipeId).ToList();
+                if(existingIngredients.Count == 0)
+                {
+                    RecipeIngredient recipeIngredient = new RecipeIngredient
+                    {
+                        Ingredient = _appDbContext.Ingredients.Single(i => i.Id == ingredientId),
+                        Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId)
+
+                    };
+                }
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("List");
+        }
+       
 
     }
 }

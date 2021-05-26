@@ -11,7 +11,23 @@
             <a href="#">@Model.Recipe.Name</a>
         </h3>
         <h4>@Model.Recipe.ShortDescription</h4>
-        <h4>@Model.Recipe.Id</h4>
+        <h4>Recipe ID:  @Model.Recipe.Id</h4>
+
+        <ul>
+            @foreach(var recipeIngredient in Model.recipeIngredients)
+            {
+                <li>@recipeIngredient.Ingredient.Name</li>
+                <li>@recipeIngredient.Ingredient.CO2Per100G CO2 emitted per 100g</li>
+            }
+
+        </ul>
+
+        @if(Model.recipeIngredients.Count == 0)
+            {
+                <p class="button"><i> This recipe has no ingredients, that is odd. Normally recipes has ingredients, add some if you'd like!</i></p>
+            }
+
+        <p><a asp-controller="Recipe" asp-action="AddItem" asp-route-id="@Model.Recipe.Id"> Add Ingredients Here  </a></p>
 
         <div class="addToPlan">
             <p class="button">

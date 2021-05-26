@@ -1,0 +1,20 @@
+﻿@model RecipeApp.ViewModels.AddRecipeIngredientViewModel
+
+@{  ViewBag.Title = "Add Ingredient to Recipe: " + Model.Recipe.Name;
+}
+
+
+<form asp-controller="Recipe" asp-action="AddItem" method="post">
+    <div class="form-group">
+        <label asp-for="IngredientId"></label>
+        <select asp-for="IngredientId" asp-items="Model.Ingredients"></select>
+        <span asp-validation-for="IngredientId"></span>
+
+    </div>
+
+    <input type="hidden" name="RecipeId" value="@Model.Recipe.Id" />
+
+    <input type="submit" value="Add Item"
+
+
+</form>

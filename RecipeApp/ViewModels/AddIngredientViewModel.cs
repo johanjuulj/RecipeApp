@@ -13,6 +13,24 @@ namespace RecipeApp.ViewModels
 
         public int NumerOfIngredients { get; set; }
 
-        public IDictionary<int, int> RecipeList { get; set; }
+        public Dictionary<string, int> RecipeList { get; set; }
+
+        public AddIngredientViewModel()
+        {
+            RecipeList = new Dictionary<string, int>();
+            
+    }
+        
+        
+        
+       
+
+       
+
+        public AddIngredientViewModel Add(string key, int value)
+        {
+            RecipeList.Add(key, value);
+            return this;
+        }
     }
 }
