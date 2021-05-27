@@ -18,7 +18,7 @@ namespace RecipeApp.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal CO2Per100G { get; set; }
 
-        public List<RecipeIngredient> RecipeIngredients { get; set; }
+        public IList<RecipeIngredient> RecipeIngredients { get; set; } //non instantiated?
 
         public Ingredient()
         {

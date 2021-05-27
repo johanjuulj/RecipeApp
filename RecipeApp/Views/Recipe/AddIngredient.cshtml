@@ -3,21 +3,55 @@
 
 @{
     ViewData["Title"] = "Add Ingredient to Recipe";
+    var first = Guid.NewGuid(); var second = Guid.NewGuid();
 }
+
+
+
+
+
+@using (Html.BeginForm(new { action = "AddedIngredients", controller = "Recipe" }))
+{
+
+
+
+
+
+    foreach (var kvp in Model.RecipeList)
+    {
+        <p>
+            <select asp-for="Ingredients" asp-items="@Model.Ingredients.Select(p => new SelectListItem { Text = p.Name })"  class="form-control" id="simpleSelect2"></select>
+
+            <input type="number" name="Model.RecipeList[@first].Value" value="@kvp.Value" />
+            <input type="hidden" name="Model.RecipeList.Index" value="@first" />
+        </p>
+    }
+
+    <!-- <p>
+
+        <input type="text" name="Model.RecipeList[first].Key" value="kvp.Key" />
+
+
+        <input type="number" name="Model.RecipeList[second].Key" value="" />
+        <input type="number" name="Model.RecipeList[second].Value" value="" />
+        <input type="hidden" name="Model.RecipeList.Index" value="second" />
+    </p>-->
+
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+}
+
 
 
 <h1>Add ingredients to @Model.Recipe.Name </h1>
 
-<h3>    These are the ones you can add </h3>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="AddedIngredients" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Recipe.Name" class="control-label"></label>
 
-            </div>
 
             <div class="form-group">
                 <label asp-for="Recipe.Kitchen" class="control-label"></label>
@@ -26,20 +60,23 @@
                 <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
             </div>
 
-            <div>
-                <input id="btnAdd" type="button" value="Add More Ingredients" onclick="AddTextBox()" />
-                <br />
-                <br />
-                <div id="TextBoxContainer">
-                    <!--Textboxes will be added here -->
+
+
+
+            @for (int i = 0; i < Model.NumerOfIngredients; i++)
+            {
+                <div class="form-group">
+                    <label class="control-label"> Select an ingredient</label>
+                    <select asp-for="Ingredients" asp-items="@Model.Ingredients.Select(p => new SelectListItem { Text = p.Name })" name="simpleSelect2" class="form-control" id="simpleSelect2"></select>
+
+                    <span asp-validation-for="Ingredients" class="text-danger"></span>
+                    <label class="control-label"> Quantity of ingredient (gram)</label>
+                    <!--<input type="number" asp-for="RecipeList.Add(value)" value="42" />-->
+
+                    <input type="number" asp-for="NumerOfIngredients" value="42" />
+
                 </div>
-                <br />
-                <asp:Button ID="btnPost" runat="server" Text="Post" OnClick="Post" />
-
-
-            </div>
-
-
+            }
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -51,25 +88,8 @@
 
 
         </form>
-        <h1>@Model.NumerOfIngredients</h1>
-        @for (int i = 0; i < Model.NumerOfIngredients; i++)
-        {
-    <div class="form-group">
-        <label class="control-label"> Select an ingredient</label>
-        <!--   <select asp-for="Ingredients" asp-items="Html.GetEnumSelectList<Cuisine>()" name="simpleSelect2" class="form-control" id="simpleSelect2"></select> -->
-        @Html.DropDownListFor(m => m.Ingredients,
-      Model.Ingredients.Select(p => new SelectListItem { Text = p.Name }))
-        <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
-    </div>
-        }
 
 
-        @foreach (var ingredient in Model.Ingredients)
-        {
-            <h1> @ingredient.Name </h1>
-        }
-
-     
 
 
         @section Scripts
