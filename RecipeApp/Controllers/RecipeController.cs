@@ -159,7 +159,7 @@ namespace RecipeApp.Controllers
         public IActionResult Details(int id)
         {
             List<RecipeIngredient> localRecipeIngredients = _appDbContext.RecipeIngredients.
-                Include(i => i.Recipe).
+                Include(i => i.Ingredient).
                 Where(ri => ri.RecipeId == id).ToList();
 
 
@@ -215,7 +215,10 @@ namespace RecipeApp.Controllers
                         Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId)
 
                     };
+                    _appDbContext.RecipeIngredients.Add(recipeIngredient);
+                    _appDbContext.SaveChanges();
                 }
+                //return Redirect(string.Format("Menu/ViewMenu/{0}", model);
                 return RedirectToAction("List");
             }
             return RedirectToAction("List");
