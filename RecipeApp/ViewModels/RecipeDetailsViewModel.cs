@@ -11,6 +11,7 @@ namespace RecipeApp.ViewModels
         public Recipe Recipe { get; set; }
 
         public int recipeId { get; set; }
+        public int ingredientId { get; set; }
 
         public int numberOfRecipes { get; set; }
 

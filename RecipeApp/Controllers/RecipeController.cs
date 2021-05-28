@@ -213,7 +213,7 @@ namespace RecipeApp.Controllers
                     {
                         Ingredient = _appDbContext.Ingredients.Single(i => i.Id == ingredientId),
                         Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId)
-
+                        //add weight here maybe?
                     };
                     _appDbContext.RecipeIngredients.Add(recipeIngredient);
                     _appDbContext.SaveChanges();
@@ -223,7 +223,35 @@ namespace RecipeApp.Controllers
             }
             return RedirectToAction("List");
         }
-       
+
+        [HttpPost]
+        public RedirectToActionResult RemoveItem(RecipeDetailsViewModel model)
+        {
+           
+            
+            var ingredientId = model.ingredientId;
+            var recipeId = model.recipeId;
+            
+            
+            var selectedRecipeIngredient = _appDbContext.RecipeIngredients.
+                    Where(ri => ri.IngredientId == ingredientId).
+                    Where(ri => ri.RecipeId == recipeId).ToList();
+            if (selectedRecipeIngredient != null )
+            
+            {
+                if(selectedRecipeIngredient.Count() == 1) {
+                    _appDbContext.RecipeIngredients.Remove(selectedRecipeIngredient[0]);
+
+                    _appDbContext.SaveChanges();
+                }
+                
+
+                
+    }
+
+            return RedirectToAction("List");
+}
+
 
     }
 }

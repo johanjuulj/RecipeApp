@@ -33,8 +33,8 @@ namespace RecipeApp
 
             services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AppDbContext>();
 
-           
 
+            //services.AddScoped<IRecipeIngredientRepo, RecipeIngredientRepo>();
             services.AddScoped<IRecipeRepo, RecipeRepo>(); //add inmemory to change DB
             services.AddScoped<IIngredientRepo, IngredientRepo>(); //scoped means you only use the same object per request, singleton is once per "cycle" transient is one use only
             services.AddScoped<IOrderRepository, OrderRepository>();
