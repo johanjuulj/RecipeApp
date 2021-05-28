@@ -18,6 +18,7 @@ namespace RecipeApp.ViewModels
 
         public int IngredientId { get; set; }
 
+        public AddRecipeIngredientViewModel() { }
         public AddRecipeIngredientViewModel(Recipe recipe, IEnumerable<Ingredient> ingredients )
         {
             Ingredients = new List<SelectListItem>();
