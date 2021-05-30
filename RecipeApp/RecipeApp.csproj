@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20210528081657_working on ingredients in recipes.Designer.cs" />
     <Compile Remove="Migrations\20210528124752_chck.cs" />
     <Compile Remove="Migrations\20210528124752_chck.Designer.cs" />
+    <Compile Remove="Migrations\20210528125312_update loginCre.cs" />
+    <Compile Remove="Migrations\20210528125312_update loginCre.Designer.cs" />
+    <Compile Remove="Migrations\20210528134013_ost.cs" />
+    <Compile Remove="Migrations\20210528134013_ost.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

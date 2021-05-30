@@ -1,5 +1,53 @@
 ﻿@model OrderCheckOutViewModel
 
+<h1><b> Shopping List </b></h1>
+<h2>These are the ingredients you need for this week's foodplan:</h2>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th scope="col">Ingredient</th>
+
+            <th scope="col">CO2 Emission (per 100g)</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Total CO2 Footprint of Ingredient</th>
+            <th scope="col">% CO2 </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipeIngredient in Model.FoodPlanRecipeIngredients)
+        {
+
+            <tr>
+
+
+                <td>@recipeIngredient.Ingredient.Name</td>
+
+                <td>@recipeIngredient.Ingredient.CO2Per100G </td>
+
+                <td>@recipeIngredient.WeightofIngredient </td>
+
+                <td>@(recipeIngredient.WeightofIngredient*(recipeIngredient.Ingredient.CO2Per100G/100)) </td>
+
+                <td>@((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100)) / (Model.totalCO2 /100) ) </td>
+                
+            </tr>
+
+        }
+        <tr>
+            <td colspan="3">Total Recipe CO2 Footprint</td>
+            <td>@Model.totalCO2</td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+
+<h1> Fill out the form below for delivery: </h1>
+
 <form asp-action="CheckOut" method="post" class="form-horizontal" role="form">
     <h4>Order your weekly foodplan here</h4>
 
@@ -94,23 +142,3 @@
     </div>
 </form>
 
-<h1> You are ordering: </h1>
-
-<!-- Insert a viewcomponent/partial view instead-->
-
-@foreach (var recipe in Model.RecipeList)
-{
-    <tr>
-        <td class="text-center">@recipe.Amount</td>
-        <td class="text-left">@recipe.Recipe.Name</td>
-        <td class="text-right">@recipe.Recipe.Price.ToString("c")</td>
-        <td class="text-right">
-            @((recipe.Amount * recipe.Recipe.Price).ToString("c"))
-        </td>
-    </tr>
-}
-
-@foreach (var recipe in Model.RecipeList)
-{
-    <h1> @recipe.Recipe.Name </h1>
-}
