@@ -1,11 +1,12 @@
 ﻿@model RecipeDetailsViewModel
 
 
-<h2>@Model.Recipe.Name</h2>
+
 
 <div class="thumbnail">
     <img alt="@Model.Recipe.Name" src="@Model.Recipe.ImageUrl">
-    <div class="caption-full">
+    <div class="caption-full" width="400" height="400">
+        <h2>@Model.Recipe.Name</h2>
         <h3 class="pull-right">@Model.Recipe.Kitchen</h3>
         <h3>
             <a href="#">@Model.Recipe.Name</a>
@@ -34,42 +35,42 @@
                     var tempTotalCO2 = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100));
                     var tempPercentage = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100));
                     var tempWeight = ((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100)) / (Model.totalCO2 / 100));
-                <tr>
+                    <tr>
 
 
-                    <td>@recipeIngredient.Ingredient.Name</td>
+                        <td>@recipeIngredient.Ingredient.Name</td>
 
 
 
-                    <td>@Html.DisplayFor(m => recipeIngredient.Ingredient.CO2Per100G) </td>
-                    <td>@Html.DisplayFor(m => recipeIngredient.WeightofIngredient) </td>
+                        <td>@Html.DisplayFor(m => recipeIngredient.Ingredient.CO2Per100G) </td>
+                        <td>@Html.DisplayFor(m => recipeIngredient.WeightofIngredient) </td>
 
-                    <td> @Html.DisplayFor(m => tempTotalCO2) </td>
-                    <td> @Html.DisplayFor(m => tempPercentage) </td>
-                    <td>@Html.DisplayFor(m => tempWeight) </td>
-                    <td>
-                        <form method="post" asp-controller="Recipe" asp-action="RemoveItem">
+                        <td> @Html.DisplayFor(m => tempTotalCO2) </td>
 
-                            <div class="form-group">
+                        <td>@Html.DisplayFor(m => tempWeight) %</td>
+                        <td>
+                            <form method="post" asp-controller="Recipe" asp-action="RemoveItem">
 
-                                <input type="hidden" asp-for="@Model.recipeId" value="@Model.Recipe.Id" class="form-control" />
+                                <div class="form-group">
 
-                                <input type="hidden" asp-for="@Model.ingredientId" class="form-control" value="@recipeIngredient.IngredientId" />
-                            </div>
+                                    <input type="hidden" asp-for="@Model.recipeId" value="@Model.Recipe.Id" class="form-control" />
 
-                            <button class="btn btn-warning" type="submit">
-                                Remove
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                                    <input type="hidden" asp-for="@Model.ingredientId" class="form-control" value="@recipeIngredient.IngredientId" />
+                                </div>
+
+                                <button class="btn btn-warning" type="submit">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
 
                 }
-            <tr>
-                <td colspan="3">Total Recipe CO2 Footprint</td>
-                <td>@Model.totalCO2</td>
-                <td>@Html.DisplayFor(m => m.totalCO2)  </td>
-            </tr>
+                <tr>
+                    <td colspan="3"><b>Total Recipe CO2 Footprint</b></td>
+                    <td><b>@Html.DisplayFor(m => m.totalCO2)</b></td>
+
+                </tr>
 
             </tbody>
         </table>
@@ -81,53 +82,27 @@
             <p class="button"><i> This recipe has no ingredients, that is odd. Normally recipes has ingredients, add some if you'd like!</i></p>
         }
 
-    <div class="addIngredient">
-        <p class="button">
-            <a class="btn btn-primary" asp-controller="Recipe" asp-action="AddItem" asp-route-id="@Model.Recipe.Id"> Add Ingredients Here  </a>
-        </p>
-    </div>
-            <div class="addToPlan">
-                <p class="button">
-                    <a class="btn btn-primary" asp-controller="FoodPlan" asp-action="AddToFoodPlan"
-                       asp-route-recipeId="@Model.Recipe.Id">Add to food plan</a>
-                </p>
-            </div>
-            <div class="deleteRecipe">
-                <p class="button">
-                    <a class="btn btn-warning" asp-controller="Recipe" asp-action="Remove"
-                       asp-route-recipeId="@Model.Recipe.Id">Remove Recipe</a>
-                </p>
-            </div>
-
-
-            <form method="post" asp-action="AddIngredient" asp-controller="Recipe">
-
-                <div class="form-group">
-
-                    <input type="hidden" asp-for="@Model.Recipe.Id" value="@Model.Recipe.Id" class="form-control" />
-
-                    <input type="hidden" asp-for="@Model.recipeId" class="form-control" value="@Model.Recipe.Id" />
-                </div>
-
-
-                <div class="form-group">
-                    <label asp-for="@Model.numberOfRecipes" class="col-md-2 control-label"></label>
-                    <div class="col-md-5">
-                        <input asp-for="@Model.numberOfRecipes" class="form-control" />
-                        <span asp-validation-for="@Model.numberOfRecipes" class="text-danger"></span>
-                    </div>
-                </div>
-
-
-
-
-                <div>
-                    <button class="btn btn-warning" type="submit">
-                        Add Ingredients
-                    </button>
-                </div>
-            </form>
-
+        <div class="addIngredient">
+            <p class="button">
+                <a class="btn btn-primary" asp-controller="Recipe" asp-action="AddItem" asp-route-id="@Model.Recipe.Id"> Add Ingredients Here  </a>
+            </p>
         </div>
+        <div class="addToPlan">
+            <p class="button">
+                <a class="btn btn-primary" asp-controller="FoodPlan" asp-action="AddToFoodPlan"
+                   asp-route-recipeId="@Model.Recipe.Id">Add to food plan</a>
+            </p>
+        </div>
+        <div class="deleteRecipe">
+            <p class="button">
+                <a class="btn btn-warning" asp-controller="Recipe" asp-action="Remove"
+                   asp-route-recipeId="@Model.Recipe.Id">Remove Recipe</a>
+            </p>
+        </div>
+
+
+
+
+    </div>
 
     </div>

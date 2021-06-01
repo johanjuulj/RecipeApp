@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -49,52 +49,52 @@ namespace RecipeApp.Controllers
         }
 
 
-        //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
-        [HttpPost]
-        public ActionResult AddIngredient(RecipeDetailsViewModel model)
-        {
+        ////figure out whether this shoulld be get or post and how to pass information here [HttpPost]
+        //[HttpPost]
+        //public ActionResult AddIngredient(RecipeDetailsViewModel model)
+        //{
 
             
 
 
-        //checking
+        ////checking
 
-        AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
-            addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
+        //AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
+        //    addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
 
-            addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
-            addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
+        //    addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
+        //    addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
 
             
 
-            foreach (Ingredient i in addIngredientViewModel.Ingredients)
-            {
-                addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
-            }
+        //    foreach (Ingredient i in addIngredientViewModel.Ingredients)
+        //    {
+        //        addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
+        //    }
             
             
 
-            return View(addIngredientViewModel);
-        }
-        [HttpPost]
-        public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
-        {
-            Console.Write(model.NumerOfIngredients);
+        //    return View(addIngredientViewModel);
+        //}
+        //[HttpPost]
+        //public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
+        //{
+        //    Console.Write(model.NumerOfIngredients);
           
 
-            foreach (KeyValuePair<string, int> amount in model.RecipeList)
-            {
-                Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
+        //    foreach (KeyValuePair<string, int> amount in model.RecipeList)
+        //    {
+        //        Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
 
 
-            }
+        //    }
 
 
-            return RedirectToAction("List");
-        }
+        //    return RedirectToAction("List");
+        //}
 
 
-        public IEnumerable<Ingredient> Ingr { get; set; }
+        //public IEnumerable<Ingredient> Ingr { get; set; }
 
         public ViewResult Create()
         {
@@ -107,12 +107,12 @@ namespace RecipeApp.Controllers
 
             };
             
-            Ingr = _ingredientRepo.AllIngredients();
+            //Ingr = _ingredientRepo.AllIngredients();
             
-            foreach(var i in Ingr)
-            {
-                Console.WriteLine(i.Name);
-            }
+            //foreach(var i in Ingr)
+            //{
+            //    Console.WriteLine(i.Name);
+            //}
             
 
             return View(recipeCreateViewModel);
@@ -190,7 +190,8 @@ namespace RecipeApp.Controllers
             };
 
             
-            Console.WriteLine("now Recipe ID and name are " + recipeDetailsViewModel.Recipe.Id + recipeDetailsViewModel.Recipe.Name);
+           
+
             return View(recipeDetailsViewModel);
         }
 
@@ -211,7 +212,7 @@ namespace RecipeApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine(model.grams);
+               
 
 
                 var ingredientId = model.IngredientId;

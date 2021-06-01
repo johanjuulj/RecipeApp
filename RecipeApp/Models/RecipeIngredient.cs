@@ -15,6 +15,7 @@ namespace RecipeApp.Models
         public int IngredientId { get; set; }
 
         public Ingredient Ingredient { get; set; }
+       
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal WeightofIngredient { get; set; }
     }
