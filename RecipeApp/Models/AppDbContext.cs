@@ -36,7 +36,8 @@ namespace RecipeApp.Models
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 2, Name = "Parmagiano", ShelfLifeDays = 50, CaloriesPer100G = 85, CO2Per100G = 10 });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 3, Name = "Spaghetti", ShelfLifeDays = 400, CaloriesPer100G = 30, CO2Per100G = 4 });
             modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 4, Name = "Tomato", ShelfLifeDays = 12, CaloriesPer100G = 15, CO2Per100G = 10 });
-         
+            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 5, Name = "Canned Tomato", ShelfLifeDays = 999, CaloriesPer100G = 19, CO2Per100G = 15 });
+
             //seed pies
 
             modelBuilder.Entity<Recipe>().HasData(new Recipe
