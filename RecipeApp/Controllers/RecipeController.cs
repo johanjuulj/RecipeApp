@@ -162,9 +162,18 @@ namespace RecipeApp.Controllers
                 Include(i => i.Ingredient).
                 Where(ri => ri.RecipeId == id).ToList();
 
+            decimal localWeight = 0;
+            foreach (var i in localRecipeIngredients)
+            {
+                
+                
 
-
-
+                decimal co2footprint = (i.WeightofIngredient / 100) * i.Ingredient.CO2Per100G;
+                localWeight = localWeight + co2footprint;
+                
+            }
+            
+            // decimal localWeight = 0;
             //which get recipe is better?
             //Recipe rECIPE = _appDbContext.Recipes.Single(r => r.Id == id);
             var recipe = _recipeRepository.GetRecipeById(id);
@@ -175,7 +184,8 @@ namespace RecipeApp.Controllers
             {
                 Recipe = recipe,
                 numberOfRecipes = 0,
-                recipeIngredients = localRecipeIngredients
+                recipeIngredients = localRecipeIngredients,
+                totalCO2 = localWeight
 
             };
 
@@ -201,6 +211,9 @@ namespace RecipeApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                Console.WriteLine(model.grams);
+
+
                 var ingredientId = model.IngredientId;
                 var recipeId = model.RecipeId;
 
@@ -212,7 +225,8 @@ namespace RecipeApp.Controllers
                     RecipeIngredient recipeIngredient = new RecipeIngredient
                     {
                         Ingredient = _appDbContext.Ingredients.Single(i => i.Id == ingredientId),
-                        Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId)
+                        Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId),
+                        WeightofIngredient = model.grams
                         //add weight here maybe?
                     };
                     _appDbContext.RecipeIngredients.Add(recipeIngredient);

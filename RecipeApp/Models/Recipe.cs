@@ -22,7 +22,7 @@ namespace RecipeApp.Models
         //insert dictionary on how to prepare the food
 
         //allergy information, should this be pulled from ingredient list
-
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 
         [Display(Name = "Image Link")]

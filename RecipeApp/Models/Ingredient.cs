@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,12 +11,16 @@ namespace RecipeApp.Models
     {
         public int Id { get;  set; }
         public string Name { get; set; }
+        
         public int ShelfLifeDays { get; set; }
 
         //data annotation http://jameschambers.com/2019/06/No-Type-Was-Specified-for-the-Decimal-Column/
-        [Column(TypeName = "decimal(18,4)")]
+
+        //[Column(TypeName = "decimal(18,4)")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal CaloriesPer100G { get; set; }
-        [Column(TypeName = "decimal(18,4)")]
+        //[Column(TypeName = "decimal(18,4)")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal CO2Per100G { get; set; }
 
         public IList<RecipeIngredient> RecipeIngredients { get; set; } //non instantiated?
