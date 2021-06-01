@@ -17,7 +17,7 @@ namespace RecipeApp
         public static void Main(string[] args)
         {
 
-            Console.WriteLine("Checking");
+            
 
             CreateHostBuilder(args).Build().Run();
         }

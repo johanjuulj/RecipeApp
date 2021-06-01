@@ -32,11 +32,11 @@ namespace RecipeApp.Models
             base.OnModelCreating(modelBuilder);
 
             //seed categories
-            modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 1, Name = "Minced Meat", ShelfLifeDays = 7, CaloriesPer100G = 125, CO2Per100G = 20 });
-            modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 2, Name = "Parmagiano", ShelfLifeDays = 50, CaloriesPer100G = 85, CO2Per100G = 10 });
-            modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 3, Name = "Spaghetti", ShelfLifeDays = 400, CaloriesPer100G = 30, CO2Per100G = 4 });
-            modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 4, Name = "Tomato", ShelfLifeDays = 12, CaloriesPer100G = 15, CO2Per100G = 10 });
-            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 5, Name = "Canned Tomato", ShelfLifeDays = 999, CaloriesPer100G = 19, CO2Per100G = 15 });
+            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "1", Name = "Minced Meat", Caloriesperkg = 125, TotalKgCo2eq = 20 });
+            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "2", Name = "Parmagiano", Caloriesperkg = 85, TotalKgCo2eq = 10 });
+            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "3", Name = "Spaghetti", Caloriesperkg = 30, TotalKgCo2eq = 4 });
+            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "4", Name = "Tomato", Caloriesperkg = 15, TotalKgCo2eq = 10 });
+            ////modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 5, Name = "Canned Tomato", ShelfLifeDays = 999, CaloriesPer100G = 19, CO2Per100G = 15 });
 
             //seed pies
 

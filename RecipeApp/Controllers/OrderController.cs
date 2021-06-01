@@ -73,7 +73,7 @@ namespace RecipeApp.Controllers
 
 
 
-                decimal co2footprint = (i.WeightofIngredient / 100) * i.Ingredient.CO2Per100G;
+                decimal co2footprint = (i.WeightofIngredient / 100) * i.Ingredient.TotalKgCo2eq;
                 localCO2 = localCO2 + co2footprint;
 
             }

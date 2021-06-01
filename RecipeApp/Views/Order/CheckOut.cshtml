@@ -23,13 +23,13 @@
 
                 <td>@recipeIngredient.Ingredient.Name</td>
 
-                <td>@recipeIngredient.Ingredient.CO2Per100G </td>
+                <td>@recipeIngredient.Ingredient.TotalKgCo2eq </td>
 
                 <td>@recipeIngredient.WeightofIngredient </td>
 
-                <td>@(recipeIngredient.WeightofIngredient*(recipeIngredient.Ingredient.CO2Per100G/100)) </td>
+                <td>@(recipeIngredient.WeightofIngredient*(recipeIngredient.Ingredient.TotalKgCo2eq / 100)) </td>
 
-                <td>@((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100)) / (Model.totalCO2 /100) ) </td>
+                <td>@((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.TotalKgCo2eq / 100)) / (Model.totalCO2 /100) ) </td>
                 
             </tr>
 

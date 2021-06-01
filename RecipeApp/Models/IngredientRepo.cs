@@ -13,6 +13,17 @@ namespace RecipeApp.Models
         {
             _db = db;
         }
+
+        public void CreateIngredient(Ingredient ingredient)
+        {
+            //if recipe name /ingredients match existing recipes ask whether a new one should be created
+
+            var localIngredient = ingredient;
+
+            _db.Ingredients.Add(localIngredient);
+            _db.SaveChanges();
+
+        }
         public IEnumerable<Ingredient> GetAllIngredients
         {
             get

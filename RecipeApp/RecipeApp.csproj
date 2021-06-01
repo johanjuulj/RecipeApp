@@ -15,6 +15,14 @@
     <Compile Remove="Migrations\20210528125312_update loginCre.Designer.cs" />
     <Compile Remove="Migrations\20210528134013_ost.cs" />
     <Compile Remove="Migrations\20210528134013_ost.Designer.cs" />
+    <Compile Remove="Migrations\20210601121425_newIngredient.cs" />
+    <Compile Remove="Migrations\20210601121425_newIngredient.Designer.cs" />
+    <Compile Remove="Migrations\20210601122125_newIngredient.cs" />
+    <Compile Remove="Migrations\20210601122125_newIngredient.Designer.cs" />
+    <Compile Remove="Migrations\20210601122734_newIngredient.cs" />
+    <Compile Remove="Migrations\20210601122734_newIngredient.Designer.cs" />
+    <Compile Remove="Migrations\20210601123348_newIngredient.cs" />
+    <Compile Remove="Migrations\20210601123348_newIngredient.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

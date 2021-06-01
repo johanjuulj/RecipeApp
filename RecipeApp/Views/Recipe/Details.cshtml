@@ -32,9 +32,9 @@
             <tbody>
                 @foreach (var recipeIngredient in Model.recipeIngredients)
                 {
-                    var tempTotalCO2 = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100));
-                    var tempPercentage = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100));
-                    var tempWeight = ((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.CO2Per100G / 100)) / (Model.totalCO2 / 100));
+                    var tempTotalCO2 = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.TotalKgCo2eq / 1000));
+                    var tempPercentage = (recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.TotalKgCo2eq / 1000));
+                    var tempWeight = ((recipeIngredient.WeightofIngredient * (recipeIngredient.Ingredient.TotalKgCo2eq / 1000)) / (Model.totalCO2 / 100));
                     <tr>
 
 
@@ -42,7 +42,7 @@
 
 
 
-                        <td>@Html.DisplayFor(m => recipeIngredient.Ingredient.CO2Per100G) </td>
+                        <td>@Html.DisplayFor(m => recipeIngredient.Ingredient.TotalKgCo2eq) </td>
                         <td>@Html.DisplayFor(m => recipeIngredient.WeightofIngredient) </td>
 
                         <td> @Html.DisplayFor(m => tempTotalCO2) </td>

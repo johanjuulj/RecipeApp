@@ -98,6 +98,7 @@ namespace RecipeApp.Controllers
 
         public ViewResult Create()
         {
+            _ingredientRepo.CreateIngredient(new Ingredient { Name = "Oste Snask", Caloriesperkg = 700, TotalKgCo2eq = 42, Category = CategoryDSK.Oils_fatsEdible });
             //should  this one be made obsolete by including it in CreteNew with an  if statement? 
             RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel()
             {
@@ -121,7 +122,9 @@ namespace RecipeApp.Controllers
         [HttpPost]
         public ViewResult Create(Recipe recipe)
         {
-           
+            
+
+
             if (recipe == null)
             {
                 ModelState.AddModelError("", "Your recipe is invalid please check your inputs and try again");
@@ -168,7 +171,7 @@ namespace RecipeApp.Controllers
                 
                 
 
-                decimal co2footprint = (i.WeightofIngredient / 100) * i.Ingredient.CO2Per100G;
+                decimal co2footprint = (i.WeightofIngredient / 1000) * i.Ingredient.TotalKgCo2eq;
                 localWeight = localWeight + co2footprint;
                 
             }

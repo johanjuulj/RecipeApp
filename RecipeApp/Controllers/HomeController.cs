@@ -23,6 +23,8 @@ namespace RecipeApp.Controllers
                 SelectedRecipes = _db.GetAllRecipes()
 
         };
+
+            
             return View(homeViewModel);
         }
     }
