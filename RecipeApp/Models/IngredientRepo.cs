@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RecipeApp.csvReader;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,31 @@ namespace RecipeApp.Models
         public IngredientRepo(AppDbContext db)
         {
             _db = db;
+        }
+
+       
+
+        public async Task LoadNewIngredients()
+        {
+            //move stuff to DB context
+            var file = new FileInfo(@"C:\repo\ingredients.xlsx");
+
+            Reader parser = new Reader();
+            List<Ingredient> loadedIngredients = await parser.LoadIngredientlData(file);
+
+            Console.WriteLine("Her");
+
+
+            foreach (Ingredient i in loadedIngredients)
+            {
+                Ingredient localIngredient = new Ingredient { Name = "Snakse", Caloriesperkg = 700, TotalKgCo2eq = 42, Category = CategoryDSK.Oils_fatsEdible };
+                Console.WriteLine("Her");
+                await _db.Ingredients.AddAsync(localIngredient);
+                
+                Console.WriteLine("Her");
+                Console.WriteLine($"{i.Id } {i.Name} {i.TotalKgCo2eq} {i.Category} calories {i.Caloriesperkg}");
+            }
+            _db.SaveChanges();
         }
 
         public void CreateIngredient(Ingredient ingredient)

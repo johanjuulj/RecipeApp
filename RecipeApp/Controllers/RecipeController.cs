@@ -39,6 +39,8 @@ namespace RecipeApp.Controllers
             RecipeListViewModel recipeListViewModel = new RecipeListViewModel();
             recipeListViewModel.Recipes = _recipeRepository.GetAllRecipes();
 
+            _ingredientRepo.LoadNewIngredients();
+            
             return View(recipeListViewModel);
         }
         //remove this and rename List() Index()
@@ -108,13 +110,7 @@ namespace RecipeApp.Controllers
 
             };
             
-            //Ingr = _ingredientRepo.AllIngredients();
-            
-            //foreach(var i in Ingr)
-            //{
-            //    Console.WriteLine(i.Name);
-            //}
-            
+         
 
             return View(recipeCreateViewModel);
         }

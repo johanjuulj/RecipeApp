@@ -14,6 +14,7 @@ namespace RecipeApp.Models
         IEnumerable<Ingredient> AllIngredients();
 
         void CreateIngredient(Ingredient ingredient);
-
+        
+        Task LoadNewIngredients();
     }
 }
