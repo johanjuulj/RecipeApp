@@ -15,9 +15,7 @@ using System.Threading.Tasks;
 namespace RecipeApp.Controllers
 {
     public class RecipeController : Controller
-
-
-    {
+  {
 
         private readonly IRecipeRepo _recipeRepository;
 
@@ -31,16 +29,45 @@ namespace RecipeApp.Controllers
             _ingredientRepo = ingredientRepo;
             _appDbContext = appDbContext;
         }
-
+        public void deleteAll()
+        {
+            var records = from m in _appDbContext.Ingredients
+                          select m;
+            foreach (var record in records)
+            {
+                _appDbContext.Ingredients.Remove(record);
+            }
+            _appDbContext.SaveChanges();
+        }
       
+        public async  Task DBUpdate()
+        {
+            List<Ingredient> localList = await _ingredientRepo.LoadNewIngredients();
 
-        public ViewResult List()
+
+
+
+
+            foreach (Ingredient i in localList)
+            {
+                Ingredient localIngredient = i;
+                Console.WriteLine("Her");
+                _appDbContext.Ingredients.Add(localIngredient);
+
+                Console.WriteLine("Her");
+                Console.WriteLine($"{i.Id } {i.Name} {i.TotalKgCo2eq} {i.Category} calories {i.Caloriesperkg}");
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public  ViewResult List()
         {
             RecipeListViewModel recipeListViewModel = new RecipeListViewModel();
             recipeListViewModel.Recipes = _recipeRepository.GetAllRecipes();
 
-            _ingredientRepo.LoadNewIngredients();
             
+            //return await Task.Run(() => View(recipeListViewModel));
             return View(recipeListViewModel);
         }
         //remove this and rename List() Index()

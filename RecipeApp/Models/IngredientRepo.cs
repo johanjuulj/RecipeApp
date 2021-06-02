@@ -18,7 +18,7 @@ namespace RecipeApp.Models
 
        
 
-        public async Task LoadNewIngredients()
+        public async Task<List<Ingredient>> LoadNewIngredients()
         {
             //move stuff to DB context
             var file = new FileInfo(@"C:\repo\ingredients.xlsx");
@@ -28,17 +28,8 @@ namespace RecipeApp.Models
 
             Console.WriteLine("Her");
 
-
-            foreach (Ingredient i in loadedIngredients)
-            {
-                Ingredient localIngredient = new Ingredient { Name = "Snakse", Caloriesperkg = 700, TotalKgCo2eq = 42, Category = CategoryDSK.Oils_fatsEdible };
-                Console.WriteLine("Her");
-                await _db.Ingredients.AddAsync(localIngredient);
-                
-                Console.WriteLine("Her");
-                Console.WriteLine($"{i.Id } {i.Name} {i.TotalKgCo2eq} {i.Category} calories {i.Caloriesperkg}");
-            }
-            _db.SaveChanges();
+            return loadedIngredients;
+            
         }
 
         public void CreateIngredient(Ingredient ingredient)

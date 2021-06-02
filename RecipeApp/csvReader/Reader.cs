@@ -47,7 +47,7 @@ namespace RecipeApp.csvReader
                 {
 
 
-                    Id = int.Parse(ws.Cells[row, col].Value.ToString()),
+                    //Id = int.Parse(ws.Cells[row, col].Value.ToString()),
                     Name = ws.Cells[row, col + 3].Value.ToString(),
                     TotalKgCo2eq = decimal.Parse(ws.Cells[row, col + 12].Value.ToString()),
                     Caloriesperkg = decimal.Parse(ws.Cells[row, col + 13].Value.ToString()),
