@@ -26,8 +26,6 @@ namespace RecipeApp.Models
             Reader parser = new Reader();
             List<Ingredient> loadedIngredients = await parser.LoadIngredientlData(file);
 
-            Console.WriteLine("Her");
-
             return loadedIngredients;
             
         }
