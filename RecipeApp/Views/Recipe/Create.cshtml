@@ -5,94 +5,64 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="boxed" height="400" width="400">
+    <h1>Create</h1>
 
-<h4>Recipe</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Recipe.Name" class="control-label"></label>
-                <input asp-for="Recipe.Name" class="form-control" />
-                <span asp-validation-for="Recipe.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.ShortDescription" class="control-label"></label>
-                <input asp-for="Recipe.ShortDescription" class="form-control" />
-                <span asp-validation-for="Recipe.ShortDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.Price" class="control-label"></label>
-                <input asp-for="Recipe.Price" class="form-control" />
-                <span asp-validation-for="Recipe.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.ImageUrl" class="control-label"></label>
-                <input asp-for="Recipe.ImageUrl" class="form-control" />
-                <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Recipe.Kitchen" class="control-label"></label>
-                <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" name="simpleSelect2" class="form-control" id="simpleSelect2"></select>
-
-                <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
-            </div>
-
-            <div>
-                <input id="btnAdd" type="button" value="Add More Ingredients" onclick="AddTextBox()" />
-                <br />
-                <br />
-                <div id="TextBoxContainer">
-                    <!--Textboxes will be added here -->
+    <h4>Recipe</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Recipe.Name" class="control-label"></label>
+                    <input asp-for="Recipe.Name" class="form-control" />
+                    <span asp-validation-for="Recipe.Name" class="text-danger"></span>
                 </div>
-                <br />
-                <asp:Button ID="btnPost" runat="server" Text="Post" OnClick="Post" />
+                <div class="form-group">
+                    <label asp-for="Recipe.ShortDescription" class="control-label"></label>
+                    <input asp-for="Recipe.ShortDescription" class="form-control" />
+                    <span asp-validation-for="Recipe.ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.Price" class="control-label"></label>
+                    <input asp-for="Recipe.Price" class="form-control" />
+                    <span asp-validation-for="Recipe.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.ImageUrl" class="control-label"></label>
+                    <input asp-for="Recipe.ImageUrl" class="form-control" />
+                    <span asp-validation-for="Recipe.ImageUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Recipe.Kitchen" class="control-label"></label>
+                    <select asp-for="Recipe.Kitchen" asp-items="Html.GetEnumSelectList<Cuisine>()" name="simpleSelect2" class="form-control" id="simpleSelect2"></select>
+
+                    <span asp-validation-for="Recipe.Kitchen" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+
+            </form>
 
 
-            </div>
-
-
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
 
 
 
 
 
-
-        </form>
-
-        <input list="brow">
-        <datalist id="brow" asp-items="Html.GetEnumSelectList<Cuisine>()">
-        </datalist>
-
-
-
-
-
+        </div>
 
 
     </div>
 
 
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
-
-
-
-
-  
-
-
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 <!--
 section Scripts {
     {await Html.RenderPartialAsync("_ValidationScriptsPartial");}

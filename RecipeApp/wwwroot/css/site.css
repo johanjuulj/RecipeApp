@@ -11,6 +11,10 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+.boxed {
+    border: 1px solid green;
+    background: white;
+}
 
 .slide-image {
     width: 100%;

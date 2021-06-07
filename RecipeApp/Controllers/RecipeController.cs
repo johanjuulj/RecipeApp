@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,9 +15,7 @@ using System.Threading.Tasks;
 namespace RecipeApp.Controllers
 {
     public class RecipeController : Controller
-
-
-    {
+  {
 
         private readonly IRecipeRepo _recipeRepository;
 
@@ -31,14 +29,45 @@ namespace RecipeApp.Controllers
             _ingredientRepo = ingredientRepo;
             _appDbContext = appDbContext;
         }
-
+        public void deleteAll()
+        {
+            var records = from m in _appDbContext.Ingredients
+                          select m;
+            foreach (var record in records)
+            {
+                _appDbContext.Ingredients.Remove(record);
+            }
+            _appDbContext.SaveChanges();
+        }
       
+        public async  Task DBUpdate()
+        {
+            List<Ingredient> localList = await _ingredientRepo.LoadNewIngredients();
 
-        public ViewResult List()
+
+
+
+
+            foreach (Ingredient i in localList)
+            {
+                Ingredient localIngredient = i;
+                Console.WriteLine("Her");
+                _appDbContext.Ingredients.Add(localIngredient);
+
+                Console.WriteLine("Her");
+                Console.WriteLine($"{i.Id } {i.Name} {i.TotalKgCo2eq} {i.Category} calories {i.Caloriesperkg}");
+            }
+
+            await _appDbContext.SaveChangesAsync();
+        }
+
+        public  ViewResult List()
         {
             RecipeListViewModel recipeListViewModel = new RecipeListViewModel();
             recipeListViewModel.Recipes = _recipeRepository.GetAllRecipes();
 
+            
+            //return await Task.Run(() => View(recipeListViewModel));
             return View(recipeListViewModel);
         }
         //remove this and rename List() Index()
@@ -49,55 +78,56 @@ namespace RecipeApp.Controllers
         }
 
 
-        //figure out whether this shoulld be get or post and how to pass information here [HttpPost]
-        [HttpPost]
-        public ActionResult AddIngredient(RecipeDetailsViewModel model)
-        {
+        ////figure out whether this shoulld be get or post and how to pass information here [HttpPost]
+        //[HttpPost]
+        //public ActionResult AddIngredient(RecipeDetailsViewModel model)
+        //{
 
             
 
 
-        //checking
+        ////checking
 
-        AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
-            addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
+        //AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
+        //    addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
 
-            addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
-            addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
+        //    addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
+        //    addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
 
             
 
-            foreach (Ingredient i in addIngredientViewModel.Ingredients)
-            {
-                addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
-            }
+        //    foreach (Ingredient i in addIngredientViewModel.Ingredients)
+        //    {
+        //        addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
+        //    }
             
             
 
-            return View(addIngredientViewModel);
-        }
-        [HttpPost]
-        public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
-        {
-            Console.Write(model.NumerOfIngredients);
+        //    return View(addIngredientViewModel);
+        //}
+        //[HttpPost]
+        //public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
+        //{
+        //    Console.Write(model.NumerOfIngredients);
           
 
-            foreach (KeyValuePair<string, int> amount in model.RecipeList)
-            {
-                Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
+        //    foreach (KeyValuePair<string, int> amount in model.RecipeList)
+        //    {
+        //        Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
 
 
-            }
+        //    }
 
 
-            return RedirectToAction("List");
-        }
+        //    return RedirectToAction("List");
+        //}
 
 
-        public IEnumerable<Ingredient> Ingr { get; set; }
+        //public IEnumerable<Ingredient> Ingr { get; set; }
 
         public ViewResult Create()
         {
+            _ingredientRepo.CreateIngredient(new Ingredient { Name = "Oste Snask", Caloriesperkg = 700, TotalKgCo2eq = 42, Category = CategoryDSK.Oils_fatsEdible });
             //should  this one be made obsolete by including it in CreteNew with an  if statement? 
             RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel()
             {
@@ -107,13 +137,7 @@ namespace RecipeApp.Controllers
 
             };
             
-            Ingr = _ingredientRepo.AllIngredients();
-            
-            foreach(var i in Ingr)
-            {
-                Console.WriteLine(i.Name);
-            }
-            
+         
 
             return View(recipeCreateViewModel);
         }
@@ -121,7 +145,9 @@ namespace RecipeApp.Controllers
         [HttpPost]
         public ViewResult Create(Recipe recipe)
         {
-           
+            
+
+
             if (recipe == null)
             {
                 ModelState.AddModelError("", "Your recipe is invalid please check your inputs and try again");
@@ -162,9 +188,18 @@ namespace RecipeApp.Controllers
                 Include(i => i.Ingredient).
                 Where(ri => ri.RecipeId == id).ToList();
 
+            decimal localWeight = 0;
+            foreach (var i in localRecipeIngredients)
+            {
+                
+                
 
-
-
+                decimal co2footprint = (i.WeightofIngredient / 1000) * i.Ingredient.TotalKgCo2eq;
+                localWeight = localWeight + co2footprint;
+                
+            }
+            
+            // decimal localWeight = 0;
             //which get recipe is better?
             //Recipe rECIPE = _appDbContext.Recipes.Single(r => r.Id == id);
             var recipe = _recipeRepository.GetRecipeById(id);
@@ -175,12 +210,14 @@ namespace RecipeApp.Controllers
             {
                 Recipe = recipe,
                 numberOfRecipes = 0,
-                recipeIngredients = localRecipeIngredients
+                recipeIngredients = localRecipeIngredients,
+                totalCO2 = localWeight
 
             };
 
             
-            Console.WriteLine("now Recipe ID and name are " + recipeDetailsViewModel.Recipe.Id + recipeDetailsViewModel.Recipe.Name);
+           
+
             return View(recipeDetailsViewModel);
         }
 
@@ -201,6 +238,9 @@ namespace RecipeApp.Controllers
         {
             if (ModelState.IsValid)
             {
+               
+
+
                 var ingredientId = model.IngredientId;
                 var recipeId = model.RecipeId;
 
@@ -212,8 +252,9 @@ namespace RecipeApp.Controllers
                     RecipeIngredient recipeIngredient = new RecipeIngredient
                     {
                         Ingredient = _appDbContext.Ingredients.Single(i => i.Id == ingredientId),
-                        Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId)
-
+                        Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId),
+                        WeightofIngredient = model.grams
+                        //add weight here maybe?
                     };
                     _appDbContext.RecipeIngredients.Add(recipeIngredient);
                     _appDbContext.SaveChanges();
@@ -223,7 +264,35 @@ namespace RecipeApp.Controllers
             }
             return RedirectToAction("List");
         }
-       
+
+        [HttpPost]
+        public RedirectToActionResult RemoveItem(RecipeDetailsViewModel model)
+        {
+           
+            
+            var ingredientId = model.ingredientId;
+            var recipeId = model.recipeId;
+            
+            
+            var selectedRecipeIngredient = _appDbContext.RecipeIngredients.
+                    Where(ri => ri.IngredientId == ingredientId).
+                    Where(ri => ri.RecipeId == recipeId).ToList();
+            if (selectedRecipeIngredient != null )
+            
+            {
+                if(selectedRecipeIngredient.Count() == 1) {
+                    _appDbContext.RecipeIngredients.Remove(selectedRecipeIngredient[0]);
+
+                    _appDbContext.SaveChanges();
+                }
+                
+
+                
+    }
+
+            return RedirectToAction("List");
+}
+
 
     }
 }

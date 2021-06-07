@@ -13,5 +13,8 @@ namespace RecipeApp.Models
         Ingredient GetIngredientById(int ingredientId);
         IEnumerable<Ingredient> AllIngredients();
 
+        void CreateIngredient(Ingredient ingredient);
+
+        Task<List<Ingredient>> LoadNewIngredients();
     }
 }

@@ -1,20 +1,64 @@
 ﻿@model RecipeApp.ViewModels.AddRecipeIngredientViewModel
 
-@{  ViewBag.Title = "Add Ingredient to Recipe: " + Model.Recipe.Name;
+@{ ViewBag.Title = "Add Ingredient to Recipe: " + Model.Recipe.Name;
 }
 
-
+<div class="boxed" width="400" height="400">
 <form asp-controller="Recipe" asp-action="AddItem" method="post">
-    <div class="form-group">
-        <label asp-for="IngredientId"></label>
-        <select asp-for="IngredientId" asp-items="Model.Ingredients"></select>
-        <span asp-validation-for="IngredientId"></span>
+    <div class="form-group-lg">
+        <div class="d-inline-block">
+            <label>Choose ingredient:</label>
+            <select asp-for="IngredientId" asp-items="Model.Ingredients" id="simpleSelect2"></select>
+        </div>
+        <div class="center-block">
+            <label>Weight (grams)</label>
+            <input type="number" asp-for="grams" value="0" />
+        </div>
 
     </div>
 
     <input type="hidden" name="RecipeId" value="@Model.Recipe.Id" />
 
-    <input type="submit" value="Add Item"
+    <input type="submit" value="Add Ingredient" />
 
 
 </form>
+
+</div>
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        function GetDynamicTextBox(value) {
+            return '<input name = "DynamicTextBox" type="text" value = "' + value + '" />' +
+                '<input type="button" value="Remove" onclick = "RemoveTextBox(this)" />' +
+                '<select asp-for="Ingredients" asp-items="Html.GetEnumSelectList<Ingredients>()" name="simpleSelect2"  id="simpleSelect2"></select>'
+
+        }
+        function AddTextBox() {
+            var div = document.createElement('DIV');
+            div.innerHTML = GetDynamicTextBox("");
+            document.getElementById("TextBoxContainer").appendChild(div);
+        }
+
+        function RemoveTextBox(div) {
+            document.getElementById("TextBoxContainer").removeChild(div.parentNode);
+        }
+
+        function RecreateDynamicTextboxes() {
+            var values = eval('<%=Values%>');
+            if (values != null) {
+                var html = "";
+                for (var i = 0; i < values.length; i++) {
+                    html += "<div>" + GetDynamicTextBox(values[i]) + "</div>";
+                }
+                document.getElementById("TextBoxContainer").innerHTML = html;
+            }
+        }
+        window.onload = RecreateDynamicTextboxes;
+    </script>
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+    <script src="~/js/select2.js"></script>
+
+}

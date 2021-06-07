@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210528134154_WeightOfIngredient")]
+    partial class WeightOfIngredient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,21 +251,58 @@ namespace RecipeApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Caloriesperkg")
+                    b.Property<decimal>("CO2Per100G")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
+                    b.Property<decimal>("CaloriesPer100G")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("TotalKgCo2eq")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<string>("Ost")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ShelfLifeDays")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CO2Per100G = 20m,
+                            CaloriesPer100G = 125m,
+                            Name = "Minced Meat",
+                            ShelfLifeDays = 7
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CO2Per100G = 10m,
+                            CaloriesPer100G = 85m,
+                            Name = "Parmagiano",
+                            ShelfLifeDays = 50
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CO2Per100G = 4m,
+                            CaloriesPer100G = 30m,
+                            Name = "Spaghetti",
+                            ShelfLifeDays = 400
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CO2Per100G = 10m,
+                            CaloriesPer100G = 15m,
+                            Name = "Tomato",
+                            ShelfLifeDays = 12
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Order", b =>

@@ -4,6 +4,7 @@
     {
         None,
         Danish,
+        Swedish,
         Italian,
         French,
         Indian,
