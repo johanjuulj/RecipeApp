@@ -35,14 +35,7 @@ namespace RecipeApp.Models
 
             base.OnModelCreating(modelBuilder);
 
-            //seed categories
-            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "1", Name = "Minced Meat", Caloriesperkg = 125, TotalKgCo2eq = 20 });
-            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "2", Name = "Parmagiano", Caloriesperkg = 85, TotalKgCo2eq = 10 });
-            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "3", Name = "Spaghetti", Caloriesperkg = 30, TotalKgCo2eq = 4 });
-            //modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = "4", Name = "Tomato", Caloriesperkg = 15, TotalKgCo2eq = 10 });
-            ////modelBuilder.Entity<Ingredient>().HasData(new Ingredient { Id = 5, Name = "Canned Tomato", ShelfLifeDays = 999, CaloriesPer100G = 19, CO2Per100G = 15 });
-
-            //seed pies
+          
 
             modelBuilder.Entity<Recipe>().HasData(new Recipe
             {
@@ -51,7 +44,7 @@ namespace RecipeApp.Models
                 
                 ShortDescription = "Best authentic bolognese recipe in the world",
                
-                ImageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fopskrifter.coop.dk%2Fopskrifter%2Fspaghetti-bolognese-760&psig=AOvVaw1Idfy2G91X7H3FP8kX0WSg&ust=1620205352346000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCa1rbVr_ACFQAAAAAdAAAAABAF",
+                ImageUrl = "https://gdurl.com/ECJD",
                 Kitchen = Cuisine.Italian
                 
             });
@@ -59,11 +52,11 @@ namespace RecipeApp.Models
             modelBuilder.Entity<Recipe>().HasData(new Recipe
             {
                 Id = 2,
-                Name = "Blueberry Cheese Cake",
+                Name = "Cabonara",
                 
                 ShortDescription = "You'll love it!",
                 
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/blueberrycheesecake.jpg",
+                ImageUrl = "https://gdurl.com/oIcC",
                 Kitchen = Cuisine.American
 
             });
@@ -75,64 +68,43 @@ namespace RecipeApp.Models
                
                 ShortDescription = "The best of the worst danish cuisine can bring you",
                 
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cheesecake.jpg",
+                ImageUrl = "http://gdurl.com/4QHf",
                 Kitchen = Cuisine.Danish
             });
 
             modelBuilder.Entity<Recipe>().HasData(new Recipe
             {
                 Id = 4,
-                Name = "Cherry Pie",
+                Name = "Burrito",
                 
                 ShortDescription = "A summer classic!",
                 
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
-                Kitchen = Cuisine.American
+                ImageUrl = "https://gdurl.com/r6sb/",
+                Kitchen = Cuisine.Mexican
             });
 
             modelBuilder.Entity<Recipe>().HasData(new Recipe
             {
                 Id = 5,
-                Name = "Christmas Apple Pie",
+                Name = "Roll Egg",
                
-                ShortDescription = "Happy holidays with this pie!",
+                ShortDescription = "Almost as good as a Rolex",
                 
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
-                Kitchen = Cuisine.American
+                ImageUrl = "https://gdurl.com/ydzp/",
+                Kitchen = Cuisine.Ugandan
             });
 
             modelBuilder.Entity<Recipe>().HasData(new Recipe
             {
                 Id = 6,
-                Name = "Cranberry Pie",
+                Name = "Hamburger",
                 
-                ShortDescription = "A Christmas favorite",
+                ShortDescription = "As American as they come",
                 
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
+                ImageUrl = "https://gdurl.com/MCEv",
                 Kitchen = Cuisine.American
             });
 
-            modelBuilder.Entity<Recipe>().HasData(new Recipe
-            {
-                Id = 7,
-                Name = "Peach Pie",
-                
-                ShortDescription = "Sweet as peach",
-                
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
-                Kitchen = Cuisine.American
-            });
-
-            modelBuilder.Entity<Recipe>().HasData(new Recipe
-            {
-                Id = 8,
-                Name = "Pumpkin Pie",
-                
-                ShortDescription = "Our Halloween favorite",
-                
-                ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
-                Kitchen = Cuisine.American
-            });
 
 
         }

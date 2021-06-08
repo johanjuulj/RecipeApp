@@ -61,10 +61,10 @@ namespace RecipeApp.Controllers
             recipeListViewModel.Recipes = _recipeRepository.GetAllRecipes();
 
             
-            //return await Task.Run(() => View(recipeListViewModel));
+            
             return View(recipeListViewModel);
         }
-        //remove this and rename List() Index()
+       
         public ViewResult Index()
         {
 
@@ -72,57 +72,11 @@ namespace RecipeApp.Controllers
         }
 
 
-        ////figure out whether this shoulld be get or post and how to pass information here [HttpPost]
-        //[HttpPost]
-        //public ActionResult AddIngredient(RecipeDetailsViewModel model)
-        //{
-
-            
-
-
-        ////checking
-
-        //AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
-        //    addIngredientViewModel.Recipe = _recipeRepository.GetRecipeById(model.recipeId);
-
-        //    addIngredientViewModel.Ingredients = _ingredientRepo.GetAllIngredients;
-        //    addIngredientViewModel.NumerOfIngredients = model.numberOfRecipes;
-
-            
-
-        //    foreach (Ingredient i in addIngredientViewModel.Ingredients)
-        //    {
-        //        addIngredientViewModel.RecipeList.Add(i.Id.ToString(), 1); ;
-        //    }
-            
-            
-
-        //    return View(addIngredientViewModel);
-        //}
-        //[HttpPost]
-        //public RedirectToActionResult AddedIngredients(AddIngredientViewModel model)
-        //{
-        //    Console.Write(model.NumerOfIngredients);
-          
-
-        //    foreach (KeyValuePair<string, int> amount in model.RecipeList)
-        //    {
-        //        Console.WriteLine("Key: {0}, Value: {1}", amount.Key, amount.Value);
-
-
-        //    }
-
-
-        //    return RedirectToAction("List");
-        //}
-
-
-        //public IEnumerable<Ingredient> Ingr { get; set; }
 
         public ViewResult Create()
         {
             _ingredientRepo.CreateIngredient(new Ingredient { Name = "Oste Snask", Caloriesperkg = 700, TotalKgCo2eq = 42, Category = CategoryDSK.Oils_fatsEdible });
-            //should  this one be made obsolete by including it in CreteNew with an  if statement? 
+            
             RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel()
             {
                 Recipe = null,
@@ -209,7 +163,7 @@ namespace RecipeApp.Controllers
 
             List<Ingredient> ingredients = _ingredientRepo.GetAllIngredients.ToList();
 
-            //List<Ingredient> ingredients = _appDbContext.Ingredients.ToList();
+           
 
             return View(new AddRecipeIngredientViewModel(recipe,ingredients));
         }
@@ -235,12 +189,12 @@ namespace RecipeApp.Controllers
                         Ingredient = _appDbContext.Ingredients.Single(i => i.Id == ingredientId),
                         Recipe = _appDbContext.Recipes.Single(r => r.Id == recipeId),
                         WeightofIngredient = model.grams
-                        //add weight here maybe?
+                        
                     };
                     _appDbContext.RecipeIngredients.Add(recipeIngredient);
                     _appDbContext.SaveChanges();
                 }
-                //return Redirect(string.Format("Menu/ViewMenu/{0}", model);
+                
                 return RedirectToAction("List");
             }
             return RedirectToAction("List");
