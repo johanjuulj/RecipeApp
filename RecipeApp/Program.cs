@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RecipeApp.Controllers;
 using RecipeApp.csvReader;
 using RecipeApp.Models;
 using System;
@@ -18,9 +19,6 @@ namespace RecipeApp
         
         public static void Main(string[] args)
         {
-
-            //IngredientRepo repo = new IngredientRepo();
-
 
             CreateHostBuilder(args).Build().Run();
         }
