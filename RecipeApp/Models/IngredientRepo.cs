@@ -44,8 +44,6 @@ namespace RecipeApp.Models
         {
             get
             {
-
-                //se code snippet on how to .Include ingredients
                 return _db.Ingredients;
             }
         }
