@@ -40,10 +40,10 @@
                         <li><a asp-controller="Recipe" asp-action="List">Recipes</a></li>
 
                         <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
-                        @await Component.InvokeAsync("FoodPlanSummary")
+
 
                         <li><a asp-controller="Recipe" asp-action="Create">Add New Recipe</a></li>
-
+                        @await Component.InvokeAsync("FoodPlanSummary")
 
 
 

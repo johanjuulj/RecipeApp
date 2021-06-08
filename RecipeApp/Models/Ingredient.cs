@@ -11,9 +11,10 @@ namespace RecipeApp.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public int ShelfLifeDays { get; set; }
+        
 
         public CategoryDSK Category { get; set; }
+        
         [Column(TypeName = "decimal(18,4)")]
         public decimal TotalKgCo2eq { get; set; }
 
@@ -22,7 +23,7 @@ namespace RecipeApp.Models
         [Column(TypeName = "decimal(18,4)")]
         public decimal Caloriesperkg { get; set; }
 
-        public IList<RecipeIngredient> RecipeIngredients { get; set; } //non instantiated?
+        public IList<RecipeIngredient> RecipeIngredients { get; set; } 
 
         public Ingredient()
         {
@@ -33,13 +34,12 @@ namespace RecipeApp.Models
             this.Id = Id;
             this.Name = Name;
         }
-        public Ingredient(int Id, string Name, decimal CO2Per100G, decimal CaloriesPer100G)
+        public Ingredient(int Id, string Name, decimal TotalKgCo2eq, decimal Caloriesperkg)
         {
             this.Id = Id;
             this.Name = Name;
-
-            this.TotalKgCo2eq = CO2Per100G;
-            this.Caloriesperkg = CaloriesPer100G;
+            this.TotalKgCo2eq = TotalKgCo2eq;
+            this.Caloriesperkg = Caloriesperkg;
         }
     }
 }

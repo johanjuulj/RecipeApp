@@ -44,18 +44,12 @@ namespace RecipeApp.Controllers
         {
             List<Ingredient> localList = await _ingredientRepo.LoadNewIngredients();
 
-
-
-
-
             foreach (Ingredient i in localList)
             {
                 Ingredient localIngredient = i;
-                Console.WriteLine("Her");
+                
                 _appDbContext.Ingredients.Add(localIngredient);
 
-                Console.WriteLine("Her");
-                Console.WriteLine($"{i.Id } {i.Name} {i.TotalKgCo2eq} {i.Category} calories {i.Caloriesperkg}");
             }
 
             await _appDbContext.SaveChangesAsync();
@@ -188,38 +182,25 @@ namespace RecipeApp.Controllers
                 Include(i => i.Ingredient).
                 Where(ri => ri.RecipeId == id).ToList();
 
+            var recipe = _recipeRepository.GetRecipeById(id);
+            if (recipe == null) return NotFound();
             decimal localWeight = 0;
             foreach (var i in localRecipeIngredients)
             {
-                
-                
-
                 decimal co2footprint = (i.WeightofIngredient / 1000) * i.Ingredient.TotalKgCo2eq;
-                localWeight = localWeight + co2footprint;
-                
+                localWeight = localWeight + co2footprint;     
             }
-            
-            // decimal localWeight = 0;
-            //which get recipe is better?
-            //Recipe rECIPE = _appDbContext.Recipes.Single(r => r.Id == id);
-            var recipe = _recipeRepository.GetRecipeById(id);
-
-            if (recipe == null) return NotFound();
-
             RecipeDetailsViewModel recipeDetailsViewModel = new RecipeDetailsViewModel()
             {
                 Recipe = recipe,
                 numberOfRecipes = 0,
                 recipeIngredients = localRecipeIngredients,
-                totalCO2 = localWeight
-
-            };
-
-            
-           
+                totalCO2 = localWeight  };
 
             return View(recipeDetailsViewModel);
         }
+
+
 
         // /Recipe/AddItem/?int
         public IActionResult AddItem(int id)

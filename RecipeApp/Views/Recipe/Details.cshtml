@@ -1,8 +1,5 @@
 ﻿@model RecipeDetailsViewModel
 
-
-
-
 <div class="thumbnail">
     <img alt="@Model.Recipe.Name" src="@Model.Recipe.ImageUrl">
     <div class="caption-full" width="400" height="400">
@@ -13,16 +10,10 @@
         </h3>
         <h4>@Model.Recipe.ShortDescription</h4>
         <h4>Recipe ID:  @Model.Recipe.Id</h4>
-
-
-
-
         <table class="table">
             <thead>
                 <tr>
-
                     <th scope="col">Ingredient</th>
-
                     <th scope="col">CO2 Emission (per 100g)</th>
                     <th scope="col">Weight</th>
                     <th scope="col">Total CO2 Footprint of Ingredient</th>
@@ -99,10 +90,6 @@
                    asp-route-recipeId="@Model.Recipe.Id">Remove Recipe</a>
             </p>
         </div>
-
-
-
-
-    </div>
+  </div>
 
     </div>

@@ -32,16 +32,7 @@ namespace RecipeApp.Models
         [Display(Name = "Cuisine")]
         public Cuisine Kitchen { get; set; }
 
-        //ingredientlist id
-        //public int IngredientId { get; set; }
-        ////add process/amount to future versions for now we only calculate co2 footprint, 
-        //[Required(ErrorMessage = "Recipes allways have ingredients, please add some")]
-        //[Display(Name = "Ingredients")]
-        //public IDictionary<RecipeIngredient, int> RecipeIngredients = new Dictionary<RecipeIngredient, int>();
-
-
-
-        [Display(Name = "Ingredients")]
+        [Display(Name = "Recipe Ingredients")]
         public List<RecipeIngredient> RecipeIngredients { get; set; } = new List<RecipeIngredient>();
 
             
