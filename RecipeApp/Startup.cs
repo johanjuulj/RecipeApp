@@ -77,11 +77,6 @@ namespace RecipeApp
 
             app.UseEndpoints(endpoints =>
             {
-                //difference between convetion based routing and attribute based routing (API)?
-                
-                
-
-
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

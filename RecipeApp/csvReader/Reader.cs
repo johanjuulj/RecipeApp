@@ -13,17 +13,7 @@ namespace RecipeApp.csvReader
     {
         public Reader()
         {
-
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-
-
-
-            //var ingredients = GetSetupdata();
-
-            //await SaveExcelFile(ingredients, file);
-
-            //List<Ingredient> loadedIngredients = await LoadExcelData(file);
         }
         public async Task<List<Ingredient>> LoadIngredientlData(FileInfo file)
         {
@@ -38,29 +28,20 @@ namespace RecipeApp.csvReader
             int row = 2;
             int col = 1;
 
-            //while statement checks whether the field is null. if it is the document is over
             while (string.IsNullOrWhiteSpace(ws.Cells[row, col].Value?.ToString()) == false)
             {
 
                 Ingredient newI = new Ingredient
 
                 {
-
-
                     //Id = int.Parse(ws.Cells[row, col].Value.ToString()),
                     Name = ws.Cells[row, col + 3].Value.ToString(),
                     TotalKgCo2eq = decimal.Parse(ws.Cells[row, col + 12].Value.ToString()),
                     Caloriesperkg = decimal.Parse(ws.Cells[row, col + 13].Value.ToString()),
-
-
-
-
-                };
+      };
 
                 string category = ws.Cells[row, col + 4].Value.ToString();
-
-
-                if (category == CategoryDSK.Vegetables.ToString())
+               if (category == CategoryDSK.Vegetables.ToString())
                 {
                     newI.Category = CategoryDSK.Vegetables;
                 }
@@ -100,7 +81,6 @@ namespace RecipeApp.csvReader
                 {
                     newI.Category = CategoryDSK.Candy_sugerProducts;
                 }
-
                 if (category == CategoryDSK.Fruits.ToString())
                 {
                     newI.Category = CategoryDSK.Fruits;
@@ -195,26 +175,6 @@ namespace RecipeApp.csvReader
                 file.Delete();
             }
         }
-
-        //private static List<Ingredient> GetSetupdata()
-        //{
-        //    List<Ingredient> output = new List<Ingredient>()
-        //    {
-        //        new Ingredient() { id = "1", name = "Gulerod", co2= 2},
-        //        new Ingredient() { id = "2", name = "Orangerod", co2= 7},
-        //        new Ingredient() { id = "3", name = "Hakket Oksekød", co2= 200},
-        //        new Ingredient() { id = "4", name = "Tun i Vand", co2= 65}
-        //    };
-        //    return output;
-        //}
-
-        //public class Ingredient
-        //{
-        //    public string id { get; set; }
-        //    public string name { get; set; }
-        //    //public int co2 { get; set; }
-
-        //}
 
     
 }

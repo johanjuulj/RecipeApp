@@ -25,7 +25,6 @@ namespace RecipeApp.Components
             var foodPlanViewModel = new FoodPlanViewModel
             {
                 FoodPlan = _foodPlan,
-                //ShoppingCartTotal = _foodPlan
             };
             return View(foodPlanViewModel);
         }

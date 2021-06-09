@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210608185036_Recipe")]
+    partial class Recipe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -391,7 +393,7 @@ namespace RecipeApp.Migrations
                         new
                         {
                             Id = 1,
-                            ImageUrl = "https://gdurl.com/ECJD",
+                            ImageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fopskrifter.coop.dk%2Fopskrifter%2Fspaghetti-bolognese-760&psig=AOvVaw1Idfy2G91X7H3FP8kX0WSg&ust=1620205352346000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCa1rbVr_ACFQAAAAAdAAAAABAF",
                             Kitchen = 3,
                             Name = "Bolognese",
                             Price = 0m,
@@ -400,16 +402,16 @@ namespace RecipeApp.Migrations
                         new
                         {
                             Id = 2,
-                            ImageUrl = "https://gdurl.com/oIcC",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/blueberrycheesecake.jpg",
                             Kitchen = 7,
-                            Name = "Cabonara",
+                            Name = "Blueberry Cheese Cake",
                             Price = 0m,
                             ShortDescription = "You'll love it!"
                         },
                         new
                         {
                             Id = 3,
-                            ImageUrl = "http://gdurl.com/4QHf",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cheesecake.jpg",
                             Kitchen = 1,
                             Name = "Steg Flæsk med Persillesovs",
                             Price = 0m,
@@ -418,29 +420,47 @@ namespace RecipeApp.Migrations
                         new
                         {
                             Id = 4,
-                            ImageUrl = "https://gdurl.com/r6sb/",
-                            Kitchen = 6,
-                            Name = "Burrito",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cherrypie.jpg",
+                            Kitchen = 7,
+                            Name = "Cherry Pie",
                             Price = 0m,
                             ShortDescription = "A summer classic!"
                         },
                         new
                         {
                             Id = 5,
-                            ImageUrl = "https://gdurl.com/ydzp/",
-                            Kitchen = 8,
-                            Name = "Roll Egg",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/christmasapplepie.jpg",
+                            Kitchen = 7,
+                            Name = "Christmas Apple Pie",
                             Price = 0m,
-                            ShortDescription = "Almost as good as a Rolex"
+                            ShortDescription = "Happy holidays with this pie!"
                         },
                         new
                         {
                             Id = 6,
-                            ImageUrl = "https://gdurl.com/MCEv",
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/cranberrypie.jpg",
                             Kitchen = 7,
-                            Name = "Hamburger",
+                            Name = "Cranberry Pie",
                             Price = 0m,
-                            ShortDescription = "As American as they come"
+                            ShortDescription = "A Christmas favorite"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/peachpie.jpg",
+                            Kitchen = 7,
+                            Name = "Peach Pie",
+                            Price = 0m,
+                            ShortDescription = "Sweet as peach"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/pumpkinpie.jpg",
+                            Kitchen = 7,
+                            Name = "Pumpkin Pie",
+                            Price = 0m,
+                            ShortDescription = "Our Halloween favorite"
                         });
                 });
 

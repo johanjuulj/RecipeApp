@@ -36,13 +36,12 @@ namespace RecipeApp.Controllers
 
         public RedirectToActionResult AddToFoodPlan(int recipeId)
         {
-            Console.WriteLine(recipeId);
-            //is this supposed to be AllREcipes or GetAllRecipes
+            
             var selectedRecipe = _recipeRepo.GetAllRecipes().FirstOrDefault(r => r.Id == recipeId);
 
             if(selectedRecipe != null)
             {
-                Console.WriteLine(selectedRecipe.Id);
+               
                 _foodPlan.AddToPlan(selectedRecipe,1);
             }
 
@@ -55,7 +54,7 @@ namespace RecipeApp.Controllers
 
         public RedirectToActionResult RemoveFromFoodPlan(int recipeId)
         {
-            //is this supposed to be AllREcipes or GetAllRecipes
+            
             var selectedRecipe = _recipeRepo.GetAllRecipes().FirstOrDefault(r => r.Id == recipeId);
 
             if (selectedRecipe != null)
