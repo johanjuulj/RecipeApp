@@ -10,21 +10,39 @@ namespace RecipeApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRecipeRepo _db;
-
-        public HomeController(IRecipeRepo db)
+        private readonly IRecipeRepo recipeRepo;
+        private readonly IIngredientRepo ingredientRepo;
+        private readonly AppDbContext appDbContext;
+        public HomeController(IRecipeRepo db, IIngredientRepo ingredientRepo, AppDbContext appDbContext)
         {
-            _db = db;
+            recipeRepo = db;
+
+            this.ingredientRepo = ingredientRepo;
+            this.appDbContext = appDbContext;
+
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var homeViewModel = new HomeViewModel
             {
-                SelectedRecipes = _db.GetAllRecipes()
+                SelectedRecipes = recipeRepo.GetAllRecipes()
 
-        };
+                
 
-            
+            };
+
+            var x = ingredientRepo.AllIngredients();
+
+            if (x.Count() == 0)
+            {
+                Console.WriteLine("What up ");
+                //add ingredients to recipe
+                RecipeController controller = new RecipeController(recipeRepo, ingredientRepo,appDbContext);
+                await controller.DBUpdate();
+                Console.WriteLine("should have ingredients now");
+            }
+
+
             return View(homeViewModel);
         }
     }
