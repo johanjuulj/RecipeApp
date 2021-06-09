@@ -4,6 +4,7 @@ using RecipeApp.Controllers;
 using RecipeApp.Models;
 using System;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,25 +19,28 @@ namespace UnitTestProject
         }
 
         [Fact]
-        public void Test2()
+        public void List()
         {
             // Arrange
+           
             var IReci = A.Fake<IRecipeRepo>();
-          //  var controller = new HomeController(IReci);
+            var foodPlan = new FoodPlan();
+
+            var controller = new FoodPlanController(IReci, foodPlan);
 
             // Act
-          //  var result = controller.Index() as ViewResult;
+            var result = controller.Index() as IActionResult;
 
             // Assert
-          //  Assert.NotNull(result);
+           Assert.NotNull(result);
         }
         //[Fact]
         //public void Details()
         //{
         //    //arange
-        //    var IReci = A.Fake<IRecipeRepo>();
-        //    var IIng = A.Fake<IIngredientRepo>();
-        //    var Db = A.Fake<AppDbContext>();
+           //var IReci = A.Fake<IRecipeRepo>();
+           //var IIng = A.Fake<IIngredientRepo>();
+           //var Db = A.Fake<AppDbContext>();
 
         //    int count = 5;
 
