@@ -35,11 +35,10 @@ namespace RecipeApp.Controllers
 
             if (x.Count() == 0)
             {
-                Console.WriteLine("What up ");
-                //add ingredients to recipe
+              
                 RecipeController controller = new RecipeController(recipeRepo, ingredientRepo,appDbContext);
                 await controller.DBUpdate();
-                Console.WriteLine("should have ingredients now");
+                
             }
 
 

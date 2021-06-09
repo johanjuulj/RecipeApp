@@ -39,7 +39,7 @@ namespace RecipeApp.Models
 
         public void AddToPlan(Recipe recipe, int amount)
         {
-            Console.WriteLine(recipe.Id);
+           
             var foodPlanRecipe =
                    _db.FoodPlanItems.SingleOrDefault(
                        x => x.Recipe.Id == recipe.Id && x.FoodPlanId == FoodPlanId);
@@ -48,10 +48,10 @@ namespace RecipeApp.Models
 
 
             
-            Console.WriteLine("hi");
+           
             if (foodPlanRecipe == null)
             {
-                Console.WriteLine("it's null");
+                
                 foodPlanRecipe = new FoodPlanRecipe
                 {
                     FoodPlanId = FoodPlanId,
@@ -65,7 +65,7 @@ namespace RecipeApp.Models
             }
             else
             {
-                Console.WriteLine("not null");
+                
                 foodPlanRecipe.Amount++;
             }
             _db.SaveChanges();
