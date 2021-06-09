@@ -21,7 +21,7 @@ namespace RecipeApp.Models
         public async Task<List<Ingredient>> LoadNewIngredients()
         {
             //move stuff to DB context
-            var file = new FileInfo(@"C:\repo\ingredients.xlsx");
+            var file = new FileInfo(@"C:\Users\Johan Juul Jensen\source\repos\RecipeApp\RecipeApp\IngredientsCSV\ingredients.xlsx");
 
             Reader parser = new Reader();
             List<Ingredient> loadedIngredients = await parser.LoadIngredientlData(file);
